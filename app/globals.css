@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 0 0% 6%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -38,7 +38,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --primary: 0 0% 6%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -67,3 +67,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+ody {
+  background-color: #0f0f0f;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+.btn-schedule {
+  margin-top: 20px;
+  padding: 10px 30px;
+  background-color: #6200ea;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
