@@ -7,6 +7,9 @@ export default function Home() {
         building AI workflows doesn't need to be so painful...
       </h1>
       <AutomateButton />
+      <a href="/privacy.html" className="mt-4 text-blue-500 hover:underline">
+        Privacy Policy
+      </a>
     </div>
   );
 }
