@@ -9,7 +9,7 @@ export default function Hero() {
                 <div className="flex flex-col justify-start w-full gap-8 h-full z-10" style={{ pointerEvents: 'auto' }}>
                     <div className="flex flex-col flex-grow w-full h-full justify-center items-center my-auto">
                         <Container type="jumbotron-title">
-                            {config.landingPageTitle.toLowerCase()}
+                            <h1 className="text-5xl font-medium leading-tight">{config.landingPageTitle.toLowerCase()}</h1>
                         </Container>
                         <CTA 
                             title="Have a use case in mind?"

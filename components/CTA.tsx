@@ -19,10 +19,10 @@ const CTA: React.FC<CTAProps> = ({
 }) => {
   return (
     <Container type="primary">
-      <div className="text-primary py-16 border rounded-lg bg-white">
-        <div className="flex flex-row justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-primary py-16 border rounded-lg bg-white w-4/5 mx-auto">
+        <div className="flex flex-col gap-4 justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-left">
-            <h2 className="text-lg font-medium tracking-tight sm:text-2xl drop-shadow-sm">
+            <h2 className="text-lg font-medium tracking-tight drop-shadow-sm">
               {title}
             </h2>
           </div>
@@ -30,6 +30,7 @@ const CTA: React.FC<CTAProps> = ({
             <Link href={config.getStartedUrl}>
               <Button
                 onClick={onButtonClick}
+                className="text-lg"
               >
                 {buttonText}
               </Button>

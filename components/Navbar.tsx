@@ -25,9 +25,9 @@ export default function Navbar() {
 				<Container type="primary">
 					<div className="flex justify-between items-center">
 						<div className="flex items-center gap-8">
-							<Link href={config.logoUrl} className="items-center text-primary text-2xl font-medium py-4">{config.logoName.toLowerCase()}</Link>
+							<Link href={config.logoUrl} className="items-center text-primary text-lg font-medium py-4">{config.logoName.toLowerCase()}</Link>
 							<DropdownMenu>
-								<DropdownMenuTrigger className="flex items-center gap-1 font-light hover:text-primary">
+								<DropdownMenuTrigger className="flex items-center gap-1 font-light hover:text-primary text-lg">
 									use cases
 								</DropdownMenuTrigger>
 								<DropdownMenuContent className="w-56" onSelect={() => false}>
