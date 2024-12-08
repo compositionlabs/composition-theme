@@ -1,58 +1,37 @@
-import Image from "next/image";
 import Container from "./Container";
+import Image from "next/image";
 
-interface FeatureProps {
-  title: string;
-  description: string;
-  imgSrc?: string;
-  media?: React.ReactNode;
-  reverse?: boolean;
+export interface FeatureProps {
+    title: string;
+    description: string;
+    imgSrc: string;
+    reverse?: boolean;
 }
 
-const Feature: React.FC<FeatureProps> = ({ 
-  title, 
-  description, 
-  imgSrc, 
-  media, 
-  reverse = false 
-}) => {
-  return (
-    <Container type="primary">
-      <div className="py-16 overflow-visible">
-        <div 
-          className={`
-            container mx-auto px-4 
-            flex flex-col md:flex-row items-center 
-            gap-12 md:gap-16
-            ${reverse ? 'md:flex-row-reverse' : ''}
-          `}
-        >
-          <div className="flex-1 space-y-6 transform transition-all duration-500 hover:scale-105">
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-primary">
-              {title}
-            </h2>
-            <p className="text-gray-600 leading-relaxed text-lg">
-              {description}
-            </p>
-          </div>
-          <div className="flex-1 transform transition-all duration-500 hover:-translate-y-2">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300 bg-transparent">
-              {imgSrc ? (
-                <Image 
-                  src={imgSrc} 
-                  alt={title} 
-                  className="w-full h-full object-cover"
-                  width={1000}
-                  height={1000}
-                />
-              ) : media}
+const Feature = ({ title, description, imgSrc, reverse = false }: FeatureProps) => {
+    return (
+        <Container type="primary">
+            <div className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center justify-between py-16`}>
+                <div className="flex flex-col gap-4 flex-1">
+                    <h2 className="text-4xl font-bold bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-transparent bg-clip-text">
+                        {title}
+                    </h2>
+                    <p className="text-white text-lg">
+                        {description}
+                    </p>
+                </div>
+                <div className="flex-1">
+                    <Image
+                        src={imgSrc}
+                        alt={title}
+                        width={500}
+                        height={500}
+                        className="w-full h-auto"
+                    />
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
+        </Container>
+    );
 };
 
-export type { FeatureProps };
 export { Feature };
