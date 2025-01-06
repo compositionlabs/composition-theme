@@ -1,8 +1,7 @@
-import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " flex flex-col justify-start h-screen"}>
-        <Navbar />
+      <body className={inter.className + " flex flex-col h-screen bg-white max-w-[1000px] px-4 mx-auto"}>
+        {/* <Navbar /> */}
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
