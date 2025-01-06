@@ -1,4 +1,3 @@
-import Hero from "@/components/Hero";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,7 +6,7 @@ export default function Home() {
       <main>
         <section id="who-we-are" className="mt-4">
           <h1 className="text-[1.5em] font-bold">Who We Are</h1>
-          <p className="text-[0.8em]">Hi! We’re Noah and Chinmay. We met through multi-agent LLM reasoning research.</p>
+          <p className="text-[0.8em]">Hi! We&apos;re Noah and Chinmay. We met through multi-agent LLM reasoning research.</p>
 
           <div className="flex justify-center flex-wrap gap-12 mt-4">
             <figure className="text-center inline-block">
@@ -39,7 +38,7 @@ export default function Home() {
 
         {/* <!-- WHAT WE'VE DONE --> */}
         <section id="what-weve-done" className="mb-4">
-          <h2 className="text-[1.5em] font-bold mb-2">What We've Done</h2>
+          <h2 className="text-[1.5em] font-bold mb-2">What We&apos;ve Done</h2>
           <ul className="text-[0.8em] -space-y-2 list-disc pl-5">
             <li>Studied and researched at Harvard, MIT, IIT Roorkee, UCLA, and Brown</li>
             <li>Published several studies and a patent</li>
@@ -55,7 +54,7 @@ export default function Home() {
 
         {/* <!-- WHAT WE'RE DOING NOW --> */}
         <section id="what-were-doing-now" className="mb-12">
-          <h2 className="text-[1.5em] font-bold mb-2">What We're Doing Now</h2>
+          <h2 className="text-[1.5em] font-bold mb-2">What We&apos;re Doing Now</h2>
           <p className="text-[0.8em]">
           Building a foundational model to reduce the time and compute required for mechanical simulations @ <b>Composition Labs</b>
           </p>
