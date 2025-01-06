@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -6,24 +7,28 @@ export default function Home() {
       <main>
         <section id="who-we-are" className="mt-4">
           <h1 className="text-[1.5em] font-bold">Who We Are</h1>
-          <p className="text-[0.8em]">Hi! We're Noah and Chinmay. We met while working together on multi-agent LLM reasoning research.</p>
+          <p className="text-[0.8em]">Hi! We’re Noah and Chinmay. We met through multi-agent LLM reasoning research.</p>
 
           <div className="flex justify-center flex-wrap gap-12 mt-4">
             <figure className="text-center inline-block">
-              <img 
-                src="assets/noahheadshot.jpg" 
+              <Image 
+                src="/assets/noahheadshot.jpg" 
                 alt="Photo of Noah" 
-                className="w-[150px] h-[150px] rounded-full object-cover shadow-lg"
+                width={150}
+                height={150}
+                className="rounded-full object-cover shadow-lg w-[150px] h-[150px]"
               />
               <figcaption className="mt-3 text-[1em] font-bold text-gray-700 dark:text-gray-300">
                 Noah Evers
               </figcaption>
             </figure>
             <figure className="text-center inline-block">
-              <img 
-                src="assets/chinmayheadshot.jpg" 
+              <Image 
+                src="/assets/chinmayheadshot.jpg" 
                 alt="Photo of Chinmay" 
-                className="w-[150px] h-[150px] rounded-full object-cover shadow-lg"
+                width={150}
+                height={150}
+                className="rounded-full object-cover shadow-lg w-[150px] h-[150px]"
               />
               <figcaption className="mt-3 text-[1em] font-bold text-gray-700 dark:text-gray-300">
                 Chinmay Shrivastava

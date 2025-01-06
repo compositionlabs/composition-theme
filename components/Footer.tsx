@@ -10,7 +10,7 @@ export default function Footer() {
                 <a href="mailto:noah@composition-labs.com" className="text-gray-500 font-mono text-[0.8em]">noah@composition-labs.com</a>
                 <a href="https://www.linkedin.com/in/noahevers/" target="_blank" className="text-gray-500 font-mono text-[0.8em]">LinkedIn</a>
             </div>
-            <div className="flex flex-col justify-end footer-content gap-1">
+            <div className="flex flex-col justify-end footer-content gap-1 text-right">
                 <p className="text-gray-500 font-mono text-[0.8em]">Chinmay Shrivastava</p>
                 <a href="mailto:chinmay@composition-labs.com" className="text-gray-500 font-mono text-[0.8em]">chinmay@composition-labs.com</a>
                 <a href="https://www.linkedin.com/in/chinmay-shrivastava-42815b162/" target="_blank" className="text-gray-500 font-mono text-[0.8em]">LinkedIn</a>
