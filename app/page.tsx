@@ -6,7 +6,7 @@ export default function Home() {
       <main>
         <section id="who-we-are" className="mt-4">
           <h1 className="text-[1.5em] font-bold">Who We Are</h1>
-          <p className="text-[0.8em] leading-relaxed">Hi! We&apos;re Noah and Chinmay. We met through multi-agent LLM reasoning research.</p>
+          <p className="text-[0.8em] leading-relaxed">Hi! We&apos;re Noah and Chinmay.</p>
 
           <div className="flex justify-center flex-wrap gap-12 mt-4">
             <figure className="text-center inline-block">
