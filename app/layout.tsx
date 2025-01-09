@@ -8,10 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Composition Labs",
-  description: "Composition Labs",
-  icons: {
-    icon: '/favicon.ico',
-  }
+  description: "Reducing the time and compute required for mechanical simulations"
 };
 
 export default function RootLayout({
