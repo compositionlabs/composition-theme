@@ -817,36 +817,36 @@ const SideBySidePointCloudViewer = () => {
             // to ensure all three cameras stay in sync during animation
             activeControlsRef.current = 'groundTruth';
 
-            // Create a flag to track if user interaction has interrupted the animation
-            let animationInterrupted = false;
-
-            // Add temporary listeners to detect user interaction during animation
-            const interruptAnimation = () => {
-                animationInterrupted = true;
-                gsap.killTweensOf({ ...camera.position, rotation: rotationTarget.angle });
-                
-                // Clean up the temporary event listeners
-                if (groundTruthRendererRef.current?.domElement) {
-                    groundTruthRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                }
-                if (predictionRendererRef.current?.domElement) {
-                    predictionRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                }
-                if (errorRendererRef.current?.domElement) {
-                    errorRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                }
-            };
-
-            // Add temporary event listeners to all three renderers
-            if (groundTruthRendererRef.current?.domElement) {
-                groundTruthRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
-            }
-            if (predictionRendererRef.current?.domElement) {
-                predictionRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
-            }
-            if (errorRendererRef.current?.domElement) {
-                errorRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
-            }
+            // Temporarily disable controls during animation
+            if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = false;
+            if (predictionControlsRef.current) predictionControlsRef.current.enabled = false;
+            if (errorControlsRef.current) errorControlsRef.current.enabled = false;
+            
+            // Store original pointer event handlers and temporarily disable them
+            const gtDomElement = groundTruthRendererRef.current?.domElement;
+            const predDomElement = predictionRendererRef.current?.domElement;
+            const errDomElement = errorRendererRef.current?.domElement;
+            
+            // Save original pointer-events style
+            let gtPointerEvents = gtDomElement?.style.pointerEvents;
+            let predPointerEvents = predDomElement?.style.pointerEvents;
+            let errPointerEvents = errDomElement?.style.pointerEvents;
+            
+            // Disable pointer events during animation
+            if (gtDomElement) gtDomElement.style.pointerEvents = 'none';
+            if (predDomElement) predDomElement.style.pointerEvents = 'none';
+            if (errDomElement) errDomElement.style.pointerEvents = 'none';
+            
+            // Create a transparent overlay to block all mouse events
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'transparent';
+            overlay.style.zIndex = '9999';
+            document.body.appendChild(overlay);
 
             gsap.to({ ...camera.position, rotation: rotationTarget.angle }, { // Animate position and rotation angle
                 x: targetPosition.x,
@@ -856,9 +856,6 @@ const SideBySidePointCloudViewer = () => {
                 duration: 2, // Animation duration in seconds
                 ease: 'power2.inOut', // Smoother easing
                 onUpdate: function() { // Use function() to access 'this.targets()[0]'
-                    // Skip updates if animation was interrupted by user interaction
-                    if (animationInterrupted) return;
-                    
                     const currentTarget = this.targets()[0];
                     camera.position.set(currentTarget.x, currentTarget.y, currentTarget.z);
 
@@ -881,29 +878,28 @@ const SideBySidePointCloudViewer = () => {
                     updateCameraPosDisplay(); 
                 },
                 onComplete: () => {
-                    // Only finalize animation if it wasn't interrupted
-                    if (!animationInterrupted) {
-                        // Ensure final position and rotation are precise
-                        camera.position.copy(targetPosition);
-                        const forward = new THREE.Vector3();
-                        camera.getWorldDirection(forward);
-                        const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
-                        camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
-                        camera.lookAt(0, 0, 0);
-                        controls.update(); // Final controls update
-                        updateCameraPosDisplay(); // Final position display update
-                    }
+                    // Ensure final position and rotation are precise
+                    camera.position.copy(targetPosition);
+                    const forward = new THREE.Vector3();
+                    camera.getWorldDirection(forward);
+                    const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
+                    camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
+                    camera.lookAt(0, 0, 0);
+                    controls.update(); // Final controls update
+                    updateCameraPosDisplay(); // Final position display update
+
+                    // Re-enable controls after animation is complete
+                    if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = true;
+                    if (predictionControlsRef.current) predictionControlsRef.current.enabled = true;
+                    if (errorControlsRef.current) errorControlsRef.current.enabled = true;
                     
-                    // Clean up the temporary event listeners
-                    if (groundTruthRendererRef.current?.domElement) {
-                        groundTruthRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                    }
-                    if (predictionRendererRef.current?.domElement) {
-                        predictionRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                    }
-                    if (errorRendererRef.current?.domElement) {
-                        errorRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
-                    }
+                    // Restore original pointer-events style
+                    if (gtDomElement) gtDomElement.style.pointerEvents = gtPointerEvents || '';
+                    if (predDomElement) predDomElement.style.pointerEvents = predPointerEvents || '';
+                    if (errDomElement) errDomElement.style.pointerEvents = errPointerEvents || '';
+                    
+                    // Remove the overlay
+                    document.body.removeChild(overlay);
                 }
             });
         }
