@@ -881,7 +881,7 @@ const SideBySidePointCloudViewer = () => {
             <span className='text-xs md:text-sm font-normal'>Output: Pressure distribution over the car</span>
           </div>
           <div className='flex flex-col md:flex-row gap-4'>
-            <div className='flex flex-col'>
+            {/* <div className='flex flex-col'>
               <span className='text-sm font-semibold md:font-normal'>Numerical Solver Runtime</span>
               <span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span>
             </div>
@@ -889,12 +889,24 @@ const SideBySidePointCloudViewer = () => {
               <span className='text-sm font-semibold md:font-normal'>Our AI Model Runtime</span>
               <span className='text-xl font-normal'>{AI_RUNTIME[currentPointCloudIndex]} ms</span>
               <span className='text-sm font-normal text-green-500'>↑ {Math.round(NUM_SIM_RUNTIME * 60 * 60 * 1000 / AI_RUNTIME[currentPointCloudIndex]).toLocaleString()}x Faster</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
+
+      <div className='grid grid-cols-3 gap-4 px-8'>
+        <div className='grid grid-cols-1 items-start justify-start align-top'>
+          <span className='text-sm font-semibold md:font-normal'>Numerical Solver Runtime</span>
+          <span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span>
+        </div>
+        <div className='grid grid-cols-1 items-start justify-start align-top'>
+          <span className='text-sm font-semibold md:font-normal'>Our AI Model Runtime</span>
+          <span className='text-xl font-normal'>{AI_RUNTIME[currentPointCloudIndex]} ms</span>
+          <span className='text-sm font-normal text-green-500'>↑ {Math.round(NUM_SIM_RUNTIME * 60 * 60 * 1000 / AI_RUNTIME[currentPointCloudIndex]).toLocaleString()}x Faster</span>
+        </div>
+      </div>
       
-      <div className="flex md:flex-row flex-col md:h-[60vh] h-[1000px]">
+      <div className="flex md:flex-row flex-col md:h-[50vh] h-[1000px]">
         <div className="flex-1 flex flex-col rounded-lg overflow-hidden">
           <div className="text-white p-2 text-center font-bold font-mono">Numerical Solver Result</div>
           <div 
