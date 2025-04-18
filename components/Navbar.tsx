@@ -15,10 +15,17 @@ export default function Navbar() {
 								{config.logoName}
 							</Link>
 						</div>
-						<div className="flex items-center gap-4 h-full">
-							<Link href="/about" className="text-black dark:text-white text-lg font-light">
-								about
-							</Link>
+						<div className="flex items-center gap-10 h-full">
+							<div className="flex items-center gap-4 h-full">
+								<Link href="/how-it-works" className="text-black dark:text-white text-lg font-light">
+									how it works
+								</Link>
+							</div>
+							<div className="flex items-center gap-4 h-full">
+								<Link href="/about" className="text-black dark:text-white text-lg font-light">
+									about
+								</Link>
+							</div>
 						</div>
 					</div>
 				</Container>
