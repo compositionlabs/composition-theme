@@ -687,7 +687,7 @@ const SideBySidePointCloudViewer = () => {
           // Extract data from interleaved format and center at origin
           for (let i = 0; i < cloudInfo.numPoints; i++) {
             // Extract position and center it around origin
-            positions[i * 3] = pointData[i * 5] * 2 - center.x;     // x - stretched by factor of 2
+            positions[i * 3] = pointData[i * 5] * 2.3 - center.x;     // x - stretched by factor of 2
             positions[i * 3 + 1] = pointData[i * 5 + 1] - center.y; // y
             positions[i * 3 + 2] = pointData[i * 5 + 2] - center.z; // z
             
