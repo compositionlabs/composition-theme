@@ -332,6 +332,17 @@ const SideBySidePointCloudViewer = () => {
       // Event handlers for tracking which controls are active
       const viewName = viewIndex === 0 ? 'groundTruth' : viewIndex === 1 ? 'prediction' : 'error';
       
+      // Add a mouseover handler to pre-emptively set the active view
+      renderer.domElement.addEventListener('mouseover', () => {
+        // Update active controls when the mouse enters a view
+        activeControlsRef.current = viewName;
+      });
+      
+      // Also add touch events for mobile
+      renderer.domElement.addEventListener('touchstart', () => {
+        activeControlsRef.current = viewName;
+      }, { passive: true });
+      
       // Handle control start - mark these controls as active
       controls.addEventListener('start', () => {
         activeControlsRef.current = viewName;
@@ -397,25 +408,38 @@ const SideBySidePointCloudViewer = () => {
           sourceCam = groundTruthCameraRef.current;
         }
         
-        // Sync all cameras to match the source camera
+        // Ensure we're copying properties not references to avoid reference issues
         if (sourceCam === groundTruthCameraRef.current) {
-          predictionCameraRef.current.position.copy(sourceCam.position);
-          predictionCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          // Copy position and quaternion with clone to ensure clean copying
+          predictionCameraRef.current.position.copy(sourceCam.position.clone());
+          predictionCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
           
-          errorCameraRef.current.position.copy(sourceCam.position);
-          errorCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          errorCameraRef.current.position.copy(sourceCam.position.clone());
+          errorCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
         } else if (sourceCam === predictionCameraRef.current) {
-          groundTruthCameraRef.current.position.copy(sourceCam.position);
-          groundTruthCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          groundTruthCameraRef.current.position.copy(sourceCam.position.clone());
+          groundTruthCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
           
-          errorCameraRef.current.position.copy(sourceCam.position);
-          errorCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          errorCameraRef.current.position.copy(sourceCam.position.clone());
+          errorCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
         } else {
-          groundTruthCameraRef.current.position.copy(sourceCam.position);
-          groundTruthCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          groundTruthCameraRef.current.position.copy(sourceCam.position.clone());
+          groundTruthCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
           
-          predictionCameraRef.current.position.copy(sourceCam.position);
-          predictionCameraRef.current.quaternion.copy(sourceCam.quaternion);
+          predictionCameraRef.current.position.copy(sourceCam.position.clone());
+          predictionCameraRef.current.quaternion.copy(sourceCam.quaternion.clone());
+        }
+        
+        // Also copy the up vector to ensure consistent orientation
+        if (sourceCam === groundTruthCameraRef.current) {
+          predictionCameraRef.current.up.copy(sourceCam.up.clone());
+          errorCameraRef.current.up.copy(sourceCam.up.clone());
+        } else if (sourceCam === predictionCameraRef.current) {
+          groundTruthCameraRef.current.up.copy(sourceCam.up.clone());
+          errorCameraRef.current.up.copy(sourceCam.up.clone());
+        } else {
+          groundTruthCameraRef.current.up.copy(sourceCam.up.clone());
+          predictionCameraRef.current.up.copy(sourceCam.up.clone());
         }
         
         // Also update camera position display if needed
@@ -789,8 +813,40 @@ const SideBySidePointCloudViewer = () => {
             gsap.killTweensOf(camera.position);
             gsap.killTweensOf(rotationTarget);
 
-            // Set activeControlsRef to null during animation to ensure sync
+            // Important - treat animation as being controlled from groundTruth view
+            // to ensure all three cameras stay in sync during animation
             activeControlsRef.current = 'groundTruth';
+
+            // Create a flag to track if user interaction has interrupted the animation
+            let animationInterrupted = false;
+
+            // Add temporary listeners to detect user interaction during animation
+            const interruptAnimation = () => {
+                animationInterrupted = true;
+                gsap.killTweensOf({ ...camera.position, rotation: rotationTarget.angle });
+                
+                // Clean up the temporary event listeners
+                if (groundTruthRendererRef.current?.domElement) {
+                    groundTruthRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                }
+                if (predictionRendererRef.current?.domElement) {
+                    predictionRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                }
+                if (errorRendererRef.current?.domElement) {
+                    errorRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                }
+            };
+
+            // Add temporary event listeners to all three renderers
+            if (groundTruthRendererRef.current?.domElement) {
+                groundTruthRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
+            }
+            if (predictionRendererRef.current?.domElement) {
+                predictionRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
+            }
+            if (errorRendererRef.current?.domElement) {
+                errorRendererRef.current.domElement.addEventListener('mousedown', interruptAnimation);
+            }
 
             gsap.to({ ...camera.position, rotation: rotationTarget.angle }, { // Animate position and rotation angle
                 x: targetPosition.x,
@@ -800,6 +856,9 @@ const SideBySidePointCloudViewer = () => {
                 duration: 2, // Animation duration in seconds
                 ease: 'power2.inOut', // Smoother easing
                 onUpdate: function() { // Use function() to access 'this.targets()[0]'
+                    // Skip updates if animation was interrupted by user interaction
+                    if (animationInterrupted) return;
+                    
                     const currentTarget = this.targets()[0];
                     camera.position.set(currentTarget.x, currentTarget.y, currentTarget.z);
 
@@ -822,15 +881,29 @@ const SideBySidePointCloudViewer = () => {
                     updateCameraPosDisplay(); 
                 },
                 onComplete: () => {
-                    // Ensure final position and rotation are precise
-                    camera.position.copy(targetPosition);
-                    const forward = new THREE.Vector3();
-                    camera.getWorldDirection(forward);
-                    const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
-                    camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
-                    camera.lookAt(0, 0, 0);
-                    controls.update(); // Final controls update
-                    updateCameraPosDisplay(); // Final position display update
+                    // Only finalize animation if it wasn't interrupted
+                    if (!animationInterrupted) {
+                        // Ensure final position and rotation are precise
+                        camera.position.copy(targetPosition);
+                        const forward = new THREE.Vector3();
+                        camera.getWorldDirection(forward);
+                        const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
+                        camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
+                        camera.lookAt(0, 0, 0);
+                        controls.update(); // Final controls update
+                        updateCameraPosDisplay(); // Final position display update
+                    }
+                    
+                    // Clean up the temporary event listeners
+                    if (groundTruthRendererRef.current?.domElement) {
+                        groundTruthRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                    }
+                    if (predictionRendererRef.current?.domElement) {
+                        predictionRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                    }
+                    if (errorRendererRef.current?.domElement) {
+                        errorRendererRef.current.domElement.removeEventListener('mousedown', interruptAnimation);
+                    }
                 }
             });
         }
@@ -867,10 +940,9 @@ const SideBySidePointCloudViewer = () => {
   
   return (
     <div className="flex flex-col w-full h-full m-auto">
-      <div className="flex flex-col justify-center p-2 md:p-4 border border-gray-500 rounded-[10px] mx-4 mb-4 text-white shadow-lg overflow-hidden mt-1 gap-2">
+      <div className="flex flex-col justify-center p-2 md:p-4 border border-gray-500 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
         <div className='font-mono flex flex-col md:flex-row items-start justify-between'>
-          <span className='text-sm md:text-xl font-bold md:font-bold'>Run complex mechanical simulations in seconds</span>
-          <Button className='rounded-[10px] w-full md:w-auto my-2 md:my-0' onClick={selectRandomPointCloud} disabled={!metadata || metadata.length === 0}>New Car</Button>
+          <span className='text-sm md:text-xl font-bold md:font-bold text-center w-full'>Run complex mechanical simulations in seconds</span>
         </div>
         <div className="flex items-center justify-start w-full gap-4 font-mono">
           <span className="text-sm font-semibold">Mach-1.5 (March 2025)</span>
@@ -880,7 +952,8 @@ const SideBySidePointCloudViewer = () => {
             <span className='text-xs md:text-sm font-normal'>Simulation: CFD for Aerodynamic Performance</span>
             <span className='text-xs md:text-sm font-normal'>Output: Pressure distribution over the car</span>
           </div>
-          <div className='flex flex-col md:flex-row gap-4'>
+          <Button className='rounded-[10px] w-full md:w-[250px] my-2 md:my-0' onClick={selectRandomPointCloud} disabled={!metadata || metadata.length === 0}>New Car</Button>
+          {/* <div className='flex flex-col md:flex-row gap-4'>
             <div className='flex flex-col'>
               <span className='text-sm font-semibold md:font-normal'>Numerical Solver Runtime</span>
               <span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span>
@@ -890,55 +963,70 @@ const SideBySidePointCloudViewer = () => {
               <span className='text-xl font-normal'>{AI_RUNTIME[currentPointCloudIndex]} ms</span>
               <span className='text-sm font-normal text-green-500'>↑ {Math.round(NUM_SIM_RUNTIME * 60 * 60 * 1000 / AI_RUNTIME[currentPointCloudIndex]).toLocaleString()}x Faster</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       
-      <div className="flex md:flex-row flex-col md:h-[60vh] h-[1000px]">
-        <div className="flex-1 flex flex-col rounded-lg overflow-hidden">
-          <div className="text-white p-2 text-center font-bold font-mono">Numerical Solver Result</div>
+      <div className="flex md:flex-row flex-col md:h-[65vh] h-[1500px]">
+        <div className="flex-1 flex flex-col rounded-lg overflow-hidden relative">
+          <div className="absolute top-0 left-0 right-0 z-10 pt-2">
+            <div className="text-white text-center font-bold font-mono">Numerical Solver Result</div>
+            <div className="text-xs before:text-white text-center font-normal font-mono">Runtime: {NUM_SIM_RUNTIME} hours</div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 z-10 pt-2">
+            <div className="p-3">
+              <ColorScale 
+                min={pressureRange.min} 
+                max={pressureRange.max} 
+                label="Pressure" 
+              />
+            </div>
+          </div>
           <div 
             ref={groundTruthContainerRef} 
-            className="flex-1 w-full" 
+            className="flex-1 w-full h-full" 
           />
-          <div className="p-3">
-            <ColorScale 
-              min={pressureRange.min} 
-              max={pressureRange.max} 
-              label="Pressure" 
-            />
-          </div>
         </div>
         
-        <div className="flex-1 flex flex-col rounded-lg overflow-hidden">
-          <div className="text-white p-2 text-center font-bold font-mono">AI Result</div>
+        <div className="flex-1 flex flex-col rounded-lg overflow-hidden relative">
+          <div className="absolute top-0 left-0 right-0 z-10 pt-2">
+            <div className="text-white text-center font-bold font-mono">AI Result</div>
+            <div className="text-xs before:text-white text-center font-normal font-mono">Runtime: {AI_RUNTIME[currentPointCloudIndex]} ms</div>
+            <div className='text-xs text-green-500 text-center font-normal font-mono mt-1'>↑ {Math.round(NUM_SIM_RUNTIME * 60 * 60 * 1000 / AI_RUNTIME[currentPointCloudIndex]).toLocaleString()}x Faster</div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 z-10 pt-2">
+            <div className="p-3">
+              <ColorScale 
+                min={pressureRange.min} 
+                max={pressureRange.max} 
+                label="Pressure" 
+              />
+            </div>
+          </div>
           <div 
             ref={predictionContainerRef} 
             className="flex-1 w-full h-full" 
           />
-          <div className="p-3">
-            <ColorScale 
-              min={pressureRange.min} 
-              max={pressureRange.max} 
-              label="Pressure" 
-            />
-          </div>
         </div>
         
-        <div className="flex-1 flex flex-col rounded-lg overflow-hidden">
-          <div className="text-white p-2 text-center font-bold font-mono">Prediction Error</div>
+        <div className="flex-1 flex flex-col rounded-lg overflow-hidden relative">
+          <div className="absolute top-0 left-0 right-0 z-10 pt-2">
+            <div className="text-white text-center font-bold font-mono">Prediction Error</div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 z-10 pt-2">
+            <div className="p-3">
+              <ColorScale 
+                min={errorRange.min} 
+                max={errorRange.max} 
+                label="Error" 
+                colormap={errorColormap}
+              />
+            </div>
+          </div>
           <div 
             ref={errorContainerRef} 
             className="flex-1 w-full h-full" 
           />
-          <div className="p-3">
-            <ColorScale 
-              min={errorRange.min} 
-              max={errorRange.max} 
-              label="Error" 
-              colormap={errorColormap}
-            />
-          </div>
         </div>
       </div>
     </div>
