@@ -6,7 +6,7 @@ export default function Home() {
       <main>
         <section id="who-we-are" className="mt-4">
           <h1 className="text-[1.5em] font-bold">Who We Are</h1>
-          <p className="text-[0.8em] leading-relaxed">Hi! We&apos;re Noah and Chinmay.</p>
+          <p className="text-sm leading-relaxed">Hi! We&apos;re Noah and Chinmay.</p>
 
           <div className="flex flex-row justify-center items-center gap-4 sm:gap-8 md:gap-12 mt-4 w-full">
             <figure className="text-center flex flex-col items-center">
@@ -39,7 +39,7 @@ export default function Home() {
         {/* <!-- WHAT WE'VE DONE --> */}
         <section id="what-weve-done" className="mb-4">
           <h2 className="text-[1.5em] font-bold mb-2">What We&apos;ve Done</h2>
-          <ul className="text-[0.8em] space-y-1 list-disc pl-5 leading-relaxed">
+          <ul className="text-sm space-y-1 list-disc pl-5 leading-relaxed">
             <li>Studied and researched at Harvard, IIT Roorkee, and Brown</li>
             <li>Published several studies and a patent</li>
             <li>Founded and sold a company that improved coffee with neuroscience</li>
@@ -55,7 +55,7 @@ export default function Home() {
         {/* <!-- WHAT WE'RE DOING NOW --> */}
         <section id="what-were-doing-now" className="mb-12">
           <h2 className="text-[1.5em] font-bold mb-2">What We&apos;re Doing Now</h2>
-          <p className="text-[0.8em] leading-relaxed">
+          <p className="text-sm leading-relaxed">
           Building a foundational model to run complex mechanical simulations in seconds @ <b>CompLabs</b>
           </p>
         </section>
