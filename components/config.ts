@@ -1,5 +1,5 @@
 const config = {
-    logoName: 'Composition Labs',
+    logoName: 'CompLabs',
     logoUrl: '/',
     footerText: '© 2024 Composition Labs. All rights reserved.',
     title: 'Social Agents for lead generation',

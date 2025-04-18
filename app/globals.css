@@ -40,18 +40,18 @@
   }
 }
 
-ody {
-  background-color: #0f0f0f;
+body {
+  background-color: #0e1117;
   color: #fff;
   font-family: 'Courier New', Courier, monospace;
   font-weight: normal;
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
   flex-direction: column;
-  text-align: center;
+  text-align: center; */
 }
 
 h1 {

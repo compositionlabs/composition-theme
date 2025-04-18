@@ -1,0 +1,742 @@
+[
+  {
+    "id": 0,
+    "filename": "point_cloud_0.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.04284323751926422,
+        0.06688855588436127,
+        0.0
+      ],
+      "positionMax": [
+        0.8982008695602417,
+        0.9331114292144775,
+        0.8180580139160156
+      ],
+      "pressureMin": 0.7473882436752319,
+      "pressureMax": 0.8137639760971069
+    }
+  },
+  {
+    "id": 1,
+    "filename": "point_cloud_1.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.06110469251871109,
+        0.05485643446445465,
+        0.0
+      ],
+      "positionMax": [
+        0.9799334406852722,
+        0.9451435804367065,
+        0.784778892993927
+      ],
+      "pressureMin": 0.7695833444595337,
+      "pressureMax": 0.8137694597244263
+    }
+  },
+  {
+    "id": 2,
+    "filename": "point_cloud_2.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.026030683889985085,
+        0.07897932082414627,
+        0.0
+      ],
+      "positionMax": [
+        0.9320150017738342,
+        0.9210667014122009,
+        0.8023067712783813
+      ],
+      "pressureMin": 0.7485024333000183,
+      "pressureMax": 0.8138686418533325
+    }
+  },
+  {
+    "id": 3,
+    "filename": "point_cloud_3.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.04799837991595268,
+        0.05791676789522171,
+        0.0
+      ],
+      "positionMax": [
+        0.9160390496253967,
+        0.9418529868125916,
+        0.759208083152771
+      ],
+      "pressureMin": 0.7533437013626099,
+      "pressureMax": 0.8137643933296204
+    }
+  },
+  {
+    "id": 4,
+    "filename": "point_cloud_4.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.045938678085803986,
+        0.02577243186533451,
+        0.0
+      ],
+      "positionMax": [
+        0.9224252700805664,
+        0.9741941094398499,
+        0.8073925971984863
+      ],
+      "pressureMin": 0.7470958232879639,
+      "pressureMax": 0.8137668967247009
+    }
+  },
+  {
+    "id": 5,
+    "filename": "point_cloud_5.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.053635820746421814,
+        0.009612352587282658,
+        0.0
+      ],
+      "positionMax": [
+        0.9144793748855591,
+        0.9903876185417175,
+        0.7873161435127258
+      ],
+      "pressureMin": 0.7596883177757263,
+      "pressureMax": 0.8137755393981934
+    }
+  },
+  {
+    "id": 6,
+    "filename": "point_cloud_6.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.05662796273827553,
+        0.0928519070148468,
+        0.0
+      ],
+      "positionMax": [
+        0.9425554275512695,
+        0.9071480631828308,
+        0.759384036064148
+      ],
+      "pressureMin": 0.7448793649673462,
+      "pressureMax": 0.813761830329895
+    }
+  },
+  {
+    "id": 7,
+    "filename": "point_cloud_7.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.06428680568933487,
+        0.10181823372840881,
+        0.0
+      ],
+      "positionMax": [
+        0.947748064994812,
+        0.8981817960739136,
+        0.7567219734191895
+      ],
+      "pressureMin": 0.7523977160453796,
+      "pressureMax": 0.8137378692626953
+    }
+  },
+  {
+    "id": 8,
+    "filename": "point_cloud_8.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.04727775976061821,
+        0.04654612019658089,
+        0.0
+      ],
+      "positionMax": [
+        0.8974593281745911,
+        0.9534538984298706,
+        0.7914994955062866
+      ],
+      "pressureMin": 0.7356083393096924,
+      "pressureMax": 0.813753604888916
+    }
+  },
+  {
+    "id": 9,
+    "filename": "point_cloud_9.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.04577542841434479,
+        0.07931005954742432,
+        0.0
+      ],
+      "positionMax": [
+        0.9551653861999512,
+        0.9206899404525757,
+        0.7828320264816284
+      ],
+      "pressureMin": 0.7657001614570618,
+      "pressureMax": 0.8137633800506592
+    }
+  },
+  {
+    "id": 10,
+    "filename": "point_cloud_10.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.0598238930106163,
+        0.026873493567109108,
+        0.0
+      ],
+      "positionMax": [
+        0.9556398987770081,
+        0.9731265306472778,
+        0.7800280451774597
+      ],
+      "pressureMin": 0.7542335987091064,
+      "pressureMax": 0.8137845993041992
+    }
+  },
+  {
+    "id": 11,
+    "filename": "point_cloud_11.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.050161562860012054,
+        0.08672363311052322,
+        0.0
+      ],
+      "positionMax": [
+        0.9139208793640137,
+        0.9132763743400574,
+        0.7603433132171631
+      ],
+      "pressureMin": 0.6791223287582397,
+      "pressureMax": 0.8137643337249756
+    }
+  },
+  {
+    "id": 12,
+    "filename": "point_cloud_12.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.0540560819208622,
+        0.09253372251987457,
+        0.0
+      ],
+      "positionMax": [
+        0.9408107995986938,
+        0.9074662923812866,
+        0.7947235107421875
+      ],
+      "pressureMin": 0.7477413415908813,
+      "pressureMax": 0.8137629628181458
+    }
+  },
+  {
+    "id": 13,
+    "filename": "point_cloud_13.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.033994000405073166,
+        0.10905468463897705,
+        0.0
+      ],
+      "positionMax": [
+        0.942872941493988,
+        0.8905308246612549,
+        0.7854657769203186
+      ],
+      "pressureMin": 0.7506895661354065,
+      "pressureMax": 0.813736081123352
+    }
+  },
+  {
+    "id": 14,
+    "filename": "point_cloud_14.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.08562520891427994,
+        0.051632750779390335,
+        0.0
+      ],
+      "positionMax": [
+        0.9196066856384277,
+        0.9483672380447388,
+        0.8228542804718018
+      ],
+      "pressureMin": 0.7506869435310364,
+      "pressureMax": 0.813773512840271
+    }
+  },
+  {
+    "id": 15,
+    "filename": "point_cloud_15.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.027584750205278397,
+        0.08237588405609131,
+        0.0
+      ],
+      "positionMax": [
+        0.9344562888145447,
+        0.9176241159439087,
+        0.8272703289985657
+      ],
+      "pressureMin": 0.7386426329612732,
+      "pressureMax": 0.813758373260498
+    }
+  },
+  {
+    "id": 16,
+    "filename": "point_cloud_16.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.059896741062402725,
+        0.026848390698432922,
+        0.0
+      ],
+      "positionMax": [
+        0.9554343819618225,
+        0.9731516242027283,
+        0.7737729549407959
+      ],
+      "pressureMin": 0.7627859115600586,
+      "pressureMax": 0.8137855529785156
+    }
+  },
+  {
+    "id": 17,
+    "filename": "point_cloud_17.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.06184343621134758,
+        0.03587877005338669,
+        0.0
+      ],
+      "positionMax": [
+        0.934480607509613,
+        0.9637695550918579,
+        0.790608286857605
+      ],
+      "pressureMin": 0.664642333984375,
+      "pressureMax": 0.8137713670730591
+    }
+  },
+  {
+    "id": 18,
+    "filename": "point_cloud_18.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.04925284534692764,
+        0.0765804648399353,
+        0.0
+      ],
+      "positionMax": [
+        0.9618093967437744,
+        0.9235074520111084,
+        0.7953649163246155
+      ],
+      "pressureMin": 0.7631509304046631,
+      "pressureMax": 0.8137610554695129
+    }
+  },
+  {
+    "id": 19,
+    "filename": "point_cloud_19.bin",
+    "numPoints": 8192,
+    "pointSize": 20,
+    "format": {
+      "positions": {
+        "type": "float32",
+        "components": 3,
+        "offset": 0
+      },
+      "groundTruth": {
+        "type": "float32",
+        "components": 1,
+        "offset": 12
+      },
+      "prediction": {
+        "type": "float32",
+        "components": 1,
+        "offset": 16
+      }
+    },
+    "stats": {
+      "positionMin": [
+        0.044559817761182785,
+        0.05097127705812454,
+        0.0
+      ],
+      "positionMax": [
+        0.9312211275100708,
+        0.949028730392456,
+        0.7870664596557617
+      ],
+      "pressureMin": 0.7421641945838928,
+      "pressureMax": 0.813753068447113
+    }
+  }
+]
