@@ -896,8 +896,7 @@ const SideBySidePointCloudViewer = () => {
 
       <div className='grid grid-cols-3 gap-4 px-8'>
         <div className='grid grid-cols-1 items-start justify-start align-top'>
-          <span className='text-sm font-semibold md:font-normal'>Numerical Solver Runtime</span>
-          <span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span>
+          <span className='text-sm font-semibold md:font-normal mb-0'>Numerical Solver Runtime<br/><span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span></span>
         </div>
         <div className='grid grid-cols-1 items-start justify-start align-top'>
           <span className='text-sm font-semibold md:font-normal'>Our AI Model Runtime</span>
