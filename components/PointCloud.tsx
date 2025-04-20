@@ -944,12 +944,12 @@ const SideBySidePointCloudViewer = () => {
   
   return (
     <div className="flex flex-col w-full h-full m-auto">
-      <div className="flex flex-col justify-center p-2 md:p-4 border border-gray-500 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
+      <div className="flex flex-col justify-center p-2 md:p-4 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
         <div className='font-mono flex flex-col md:flex-row items-start justify-between'>
-          <span className='text-sm md:text-xl font-bold md:font-bold text-center w-full'>Run complex mechanical simulations in seconds</span>
+          <span className='text-sm md:text-xl font-bold md:font-bold text-left md:text-center w-full'>Run complex mechanical simulations in seconds</span>
         </div>
         <div className="flex items-center justify-start w-full gap-4 font-mono">
-          <span className="text-sm font-semibold">Mach-1.5 (March 2025)</span>
+          <span className="text-sm font-semibold">Latest Model: Mach-1.5 (March 2025)</span>
         </div>
         <div className='flex flex-col items-start justify-between font-mono md:flex-row gap-4 md:gap-0'>
           <div className='flex flex-col gap-2 md:gap-0'>
