@@ -16,7 +16,7 @@ export default function Footer() {
                 <a href="mailto:chinmay@composition-labs.com" className="text-gray-300 font-mono text-xs">chinmay@complabs.co</a>
                 <a href="https://www.linkedin.com/in/chinmay-shrivastava-42815b162/" target="_blank" className="text-gray-300 font-mono text-xs">LinkedIn</a>
             </div> */}
-            <div className="flex flex-row justify-between footer-content gap-1 text-right">
+            <div className="flex flex-col md:flex-row justify-start md:justify-between footer-content gap-1 text-left md:text-right">
                 <p className="text-gray-300 font-mono text-xs">{config.footerText}</p>
                 <a href="mailto:noah@composition-labs.com" className="text-gray-300 font-mono text-xs">
                     noah@complabs.co

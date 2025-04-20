@@ -946,28 +946,17 @@ const SideBySidePointCloudViewer = () => {
     <div className="flex flex-col w-full h-full m-auto justify-between">
       <div className="flex flex-col justify-center p-2 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
         <div className='font-mono flex flex-col md:flex-row items-start justify-between'>
-          <span className='text-sm md:text-2xl font-bold md:font-bold text-left md:text-center w-full mb-4'>Run complex mechanical simulations in seconds</span>
+          <span className='text-lg md:text-2xl font-bold md:font-bold text-center w-full mb-4'>Run complex mechanical simulations in seconds</span>
         </div>
-        <div className="flex items-center justify-between w-full gap-4 font-mono">
-          <span className="text-sm font-semibold">Latest Model: Mach-1.5 (March 2025)</span>
-          <Button className='rounded-[10px] w-full md:w-[250px] my-2 md:my-0' onClick={selectRandomPointCloud} disabled={!metadata || metadata.length === 0}>New Car</Button>
-        </div>
-        <div className='flex flex-col items-start justify-between font-mono md:flex-row gap-4 md:gap-0'>
-          <div className='flex flex-col gap-2 md:gap-0'>
-            <span className='text-xs md:text-sm font-normal'>Simulation: CFD for Aerodynamic Performance</span>
-            <span className='text-xs md:text-sm font-normal'>Output: Pressure distribution over the car</span>
+        <div className='flex flex-col md:flex-row items-start justify-between font-mono gap-4 md:gap-0'>
+          <div className="flex flex-col items-start justify-start w-full gap-4 font-mono">
+            <span className="text-sm font-semibold">Latest Model: Mach-1.5 (March 2025)</span>
+            <div className='flex flex-col gap-2 md:gap-0'>
+              <span className='text-xs md:text-sm font-normal'>Simulation: CFD for Aerodynamic Performance</span>
+              <span className='text-xs md:text-sm font-normal'>Output: Pressure distribution over the car</span>
+            </div>
           </div>
-          {/* <div className='flex flex-col md:flex-row gap-4'>
-            <div className='flex flex-col'>
-              <span className='text-sm font-semibold md:font-normal'>Numerical Solver Runtime</span>
-              <span className='text-xl font-normal'>{NUM_SIM_RUNTIME} hours</span>
-            </div>
-            <div className='flex flex-col'>
-              <span className='text-sm font-semibold md:font-normal'>Our AI Model Runtime</span>
-              <span className='text-xl font-normal'>{AI_RUNTIME[currentPointCloudIndex]} ms</span>
-              <span className='text-sm font-normal text-green-500'>↑ {Math.round(NUM_SIM_RUNTIME * 60 * 60 * 1000 / AI_RUNTIME[currentPointCloudIndex]).toLocaleString()}x Faster</span>
-            </div>
-          </div> */}
+          <Button className='rounded-[10px] w-full md:w-[250px] my-2 md:my-0' onClick={selectRandomPointCloud} disabled={!metadata || metadata.length === 0}>New Car</Button>
         </div>
       </div>
       
