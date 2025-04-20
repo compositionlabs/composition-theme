@@ -714,7 +714,7 @@ const SideBySidePointCloudViewer = () => {
           for (let i = 0; i < cloudInfo.numPoints; i++) {
             // Extract position and center it around origin
             positions[i * 3] = pointData[i * 5] * 2.3 - center.x;     // x - stretched by factor of 2
-            positions[i * 3 + 1] = pointData[i * 5 + 1] - center.y; // y
+            positions[i * 3 + 1] = pointData[i * 5 + 1] - center.y + 0.25; // y - increased offset to raise the points more
             positions[i * 3 + 2] = pointData[i * 5 + 2] - center.z; // z
             
             let normalizedValue;
@@ -943,10 +943,10 @@ const SideBySidePointCloudViewer = () => {
   };
   
   return (
-    <div className="flex flex-col w-full h-full m-auto">
-      <div className="flex flex-col justify-center p-2 md:p-4 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
+    <div className="flex flex-col w-full h-full m-auto justify-between">
+      <div className="flex flex-col justify-center p-2 rounded-[10px] mx-4 mb-2 text-white shadow-lg overflow-hidden gap-2">
         <div className='font-mono flex flex-col md:flex-row items-start justify-between'>
-          <span className='text-sm md:text-xl font-bold md:font-bold text-left md:text-center w-full'>Run complex mechanical simulations in seconds</span>
+          <span className='text-sm md:text-2xl font-bold md:font-bold text-left md:text-center w-full mb-4'>Run complex mechanical simulations in seconds</span>
         </div>
         <div className="flex items-center justify-start w-full gap-4 font-mono">
           <span className="text-sm font-semibold">Latest Model: Mach-1.5 (March 2025)</span>
