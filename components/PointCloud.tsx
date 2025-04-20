@@ -211,6 +211,8 @@ const SideBySidePointCloudViewer = () => {
   const [errorRange, setErrorRange] = useState<{ min: number; max: number }>({ min: 0, max: 1 });
   // Add state for camera position string
   const [cameraPositionString, setCameraPositionString] = useState('');
+  // Add state to track whether intro animation has played
+  const [hasPlayedIntroAnimation, setHasPlayedIntroAnimation] = useState(false);
 
   // Function to update camera position state - made reusable
   const updateCameraPosDisplay = useCallback(() => {
@@ -797,111 +799,117 @@ const SideBySidePointCloudViewer = () => {
         createPointCloud(predictionSceneRef, predictionPointCloudRef as MutableRefObject<THREE.Points | null>, 'prediction');
         createPointCloud(errorSceneRef, errorPointCloudRef as MutableRefObject<THREE.Points | null>, 'error');
         
-        // Reset camera based on point cloud bounds
-        resetCameras(cloudInfo);
+        // Only reset the camera when changing cars if animation has played
+        // Otherwise maintain current camera position
+        if (!hasPlayedIntroAnimation) {
+          resetCameras(cloudInfo);
+          
+          // Start the intro camera animation ONLY if it hasn't played before
+          if (groundTruthCameraRef.current && groundTruthControlsRef.current) {
+              const camera = groundTruthCameraRef.current;
+              const controls = groundTruthControlsRef.current;
+              const targetPosition = new THREE.Vector3(-0.94, -1.42, 1.59);
+              const initialUp = camera.up.clone(); // Store the initial UP vector
+              const rotationTarget = { angle: 0 }; // Object for GSAP to animate
+              const finalRotationAngle = 55 * Math.PI / 180; // -70 degrees clockwise in radians
 
-        // Start the intro camera animation AFTER resetting
-        if (groundTruthCameraRef.current && groundTruthControlsRef.current) {
-            const camera = groundTruthCameraRef.current;
-            const controls = groundTruthControlsRef.current;
-            const targetPosition = new THREE.Vector3(-0.94, -1.42, 1.59);
-            const initialUp = camera.up.clone(); // Store the initial UP vector
-            const rotationTarget = { angle: 0 }; // Object for GSAP to animate
-            const finalRotationAngle = 55 * Math.PI / 180; // -70 degrees clockwise in radians
+              // Kill any existing animations on the camera position and rotation target
+              gsap.killTweensOf(camera.position);
+              gsap.killTweensOf(rotationTarget);
 
-            // Kill any existing animations on the camera position and rotation target
-            gsap.killTweensOf(camera.position);
-            gsap.killTweensOf(rotationTarget);
+              // Important - treat animation as being controlled from groundTruth view
+              // to ensure all three cameras stay in sync during animation
+              activeControlsRef.current = 'groundTruth';
 
-            // Important - treat animation as being controlled from groundTruth view
-            // to ensure all three cameras stay in sync during animation
-            activeControlsRef.current = 'groundTruth';
+              // Temporarily disable controls during animation
+              if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = false;
+              if (predictionControlsRef.current) predictionControlsRef.current.enabled = false;
+              if (errorControlsRef.current) errorControlsRef.current.enabled = false;
+              
+              // Store original pointer event handlers and temporarily disable them
+              const gtDomElement = groundTruthRendererRef.current?.domElement;
+              const predDomElement = predictionRendererRef.current?.domElement;
+              const errDomElement = errorRendererRef.current?.domElement;
+              
+              // Save original pointer-events style
+              let gtPointerEvents = gtDomElement?.style.pointerEvents;
+              let predPointerEvents = predDomElement?.style.pointerEvents;
+              let errPointerEvents = errDomElement?.style.pointerEvents;
+              
+              // Disable pointer events during animation
+              if (gtDomElement) gtDomElement.style.pointerEvents = 'none';
+              if (predDomElement) predDomElement.style.pointerEvents = 'none';
+              if (errDomElement) errDomElement.style.pointerEvents = 'none';
+              
+              // Create a transparent overlay to block all mouse events
+              const overlay = document.createElement('div');
+              overlay.style.position = 'fixed';
+              overlay.style.top = '0';
+              overlay.style.left = '0';
+              overlay.style.width = '100%';
+              overlay.style.height = '100%';
+              overlay.style.backgroundColor = 'transparent';
+              overlay.style.zIndex = '9999';
+              document.body.appendChild(overlay);
 
-            // Temporarily disable controls during animation
-            if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = false;
-            if (predictionControlsRef.current) predictionControlsRef.current.enabled = false;
-            if (errorControlsRef.current) errorControlsRef.current.enabled = false;
-            
-            // Store original pointer event handlers and temporarily disable them
-            const gtDomElement = groundTruthRendererRef.current?.domElement;
-            const predDomElement = predictionRendererRef.current?.domElement;
-            const errDomElement = errorRendererRef.current?.domElement;
-            
-            // Save original pointer-events style
-            let gtPointerEvents = gtDomElement?.style.pointerEvents;
-            let predPointerEvents = predDomElement?.style.pointerEvents;
-            let errPointerEvents = errDomElement?.style.pointerEvents;
-            
-            // Disable pointer events during animation
-            if (gtDomElement) gtDomElement.style.pointerEvents = 'none';
-            if (predDomElement) predDomElement.style.pointerEvents = 'none';
-            if (errDomElement) errDomElement.style.pointerEvents = 'none';
-            
-            // Create a transparent overlay to block all mouse events
-            const overlay = document.createElement('div');
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'transparent';
-            overlay.style.zIndex = '9999';
-            document.body.appendChild(overlay);
+              gsap.to({ ...camera.position, rotation: rotationTarget.angle }, { // Animate position and rotation angle
+                  x: targetPosition.x,
+                  y: targetPosition.y,
+                  z: targetPosition.z,
+                  rotation: finalRotationAngle, // Target rotation angle
+                  duration: 2, // Animation duration in seconds
+                  ease: 'power2.inOut', // Smoother easing
+                  onUpdate: function() { // Use function() to access 'this.targets()[0]'
+                      const currentTarget = this.targets()[0];
+                      camera.position.set(currentTarget.x, currentTarget.y, currentTarget.z);
 
-            gsap.to({ ...camera.position, rotation: rotationTarget.angle }, { // Animate position and rotation angle
-                x: targetPosition.x,
-                y: targetPosition.y,
-                z: targetPosition.z,
-                rotation: finalRotationAngle, // Target rotation angle
-                duration: 2, // Animation duration in seconds
-                ease: 'power2.inOut', // Smoother easing
-                onUpdate: function() { // Use function() to access 'this.targets()[0]'
-                    const currentTarget = this.targets()[0];
-                    camera.position.set(currentTarget.x, currentTarget.y, currentTarget.z);
+                      // Calculate current rotation based on animated angle
+                      const forward = new THREE.Vector3();
+                      camera.getWorldDirection(forward); // Get current view direction
+                      const rotation = new THREE.Quaternion().setFromAxisAngle(forward, currentTarget.rotation);
+                      
+                      // Apply rotation to the *initial* up vector
+                      const newUp = initialUp.clone().applyQuaternion(rotation);
+                      camera.up.copy(newUp);
 
-                    // Calculate current rotation based on animated angle
-                    const forward = new THREE.Vector3();
-                    camera.getWorldDirection(forward); // Get current view direction
-                    const rotation = new THREE.Quaternion().setFromAxisAngle(forward, currentTarget.rotation);
-                    
-                    // Apply rotation to the *initial* up vector
-                    const newUp = initialUp.clone().applyQuaternion(rotation);
-                    camera.up.copy(newUp);
+                      // Look at the center with the new position and up vector
+                      camera.lookAt(0, 0, 0);
 
-                    // Look at the center with the new position and up vector
-                    camera.lookAt(0, 0, 0);
+                      // IMPORTANT: Keep controls updated during animation
+                      controls.update();
+                      
+                      // Update the position display string during animation
+                      updateCameraPosDisplay(); 
+                  },
+                  onComplete: () => {
+                      // Ensure final position and rotation are precise
+                      camera.position.copy(targetPosition);
+                      const forward = new THREE.Vector3();
+                      camera.getWorldDirection(forward);
+                      const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
+                      camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
+                      camera.lookAt(0, 0, 0);
+                      controls.update(); // Final controls update
+                      updateCameraPosDisplay(); // Final position display update
 
-                    // IMPORTANT: Keep controls updated during animation
-                    controls.update();
-                    
-                    // Update the position display string during animation
-                    updateCameraPosDisplay(); 
-                },
-                onComplete: () => {
-                    // Ensure final position and rotation are precise
-                    camera.position.copy(targetPosition);
-                    const forward = new THREE.Vector3();
-                    camera.getWorldDirection(forward);
-                    const finalRotation = new THREE.Quaternion().setFromAxisAngle(forward, finalRotationAngle);
-                    camera.up.copy(initialUp.clone().applyQuaternion(finalRotation));
-                    camera.lookAt(0, 0, 0);
-                    controls.update(); // Final controls update
-                    updateCameraPosDisplay(); // Final position display update
+                      // Re-enable controls after animation is complete
+                      if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = true;
+                      if (predictionControlsRef.current) predictionControlsRef.current.enabled = true;
+                      if (errorControlsRef.current) errorControlsRef.current.enabled = true;
+                      
+                      // Restore original pointer-events style
+                      if (gtDomElement) gtDomElement.style.pointerEvents = gtPointerEvents || '';
+                      if (predDomElement) predDomElement.style.pointerEvents = predPointerEvents || '';
+                      if (errDomElement) errDomElement.style.pointerEvents = errPointerEvents || '';
+                      
+                      // Remove the overlay
+                      document.body.removeChild(overlay);
 
-                    // Re-enable controls after animation is complete
-                    if (groundTruthControlsRef.current) groundTruthControlsRef.current.enabled = true;
-                    if (predictionControlsRef.current) predictionControlsRef.current.enabled = true;
-                    if (errorControlsRef.current) errorControlsRef.current.enabled = true;
-                    
-                    // Restore original pointer-events style
-                    if (gtDomElement) gtDomElement.style.pointerEvents = gtPointerEvents || '';
-                    if (predDomElement) predDomElement.style.pointerEvents = predPointerEvents || '';
-                    if (errDomElement) errDomElement.style.pointerEvents = errPointerEvents || '';
-                    
-                    // Remove the overlay
-                    document.body.removeChild(overlay);
-                }
-            });
+                      // Mark that the animation has played
+                      setHasPlayedIntroAnimation(true);
+                  }
+              });
+          }
         }
 
       } catch (error) {
@@ -910,7 +918,7 @@ const SideBySidePointCloudViewer = () => {
     };
     
     loadPointClouds();
-  }, [metadata, currentPointCloudIndex, resetCameras, updateCameraPosDisplay]); // Added updateCameraPosDisplay dependency
+  }, [metadata, currentPointCloudIndex, resetCameras, updateCameraPosDisplay, hasPlayedIntroAnimation]); // Added hasPlayedIntroAnimation dependency
   
   // Handle point cloud navigation
   const nextPointCloud = () => {
@@ -963,7 +971,7 @@ const SideBySidePointCloudViewer = () => {
         </div>
       </div>
       
-      <div className="flex md:flex-row flex-col md:h-[65vh] h-[1500px]">
+      <div className="flex md:flex-row flex-col md:h-[70vh] h-[1500px]">
         <div className="flex-1 flex flex-col rounded-lg overflow-hidden relative">
           <div className="absolute top-0 left-0 right-0 z-10 pt-2">
             <div className="text-white text-center font-bold font-mono">Numerical Solver Result</div>
