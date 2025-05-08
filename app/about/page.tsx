@@ -45,7 +45,7 @@ export default function Home() {
             <li>Founded and sold a company that improved coffee with neuroscience</li>
             <li>Featured in Scientific American, NPR, US News</li>
             <li>Built AI automations for dozens of companies</li>
-            <li>Trained a knowledge graph over the internet to provide personalized learning to 1,200 people, 3 months before ChatGPT was released</li>
+            <li>Trained a knowledge graph over the internet to provide personalized learning to 1,200 people</li>
             <li>Built an AI system that outperformed o1 on GPQA Biology 3 months before it was released</li>
             <li>2nd place in a finite element analysis competition with 5,000+ participants</li>
             <li>Worked in reinforcement learning, deep learning, computational mechanics, cognitive science, and generative AI</li>
