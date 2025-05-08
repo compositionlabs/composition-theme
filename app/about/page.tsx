@@ -46,7 +46,7 @@ export default function Home() {
             <li>Featured in Scientific American, NPR, US News</li>
             <li>Built AI automations for dozens of companies</li>
             <li>Trained a knowledge graph over the internet to provide personalized learning to 1,200 people, 3 months before ChatGPT was released</li>
-            <li>Built an AI system that outperformed o1 on GPQA Biology 3 months before it was released by using similar approaches to DeepSeek</li>
+            <li>Built an AI system that outperformed o1 on GPQA Biology 3 months before it was released</li>
             <li>2nd place in a finite element analysis competition with 5,000+ participants</li>
             <li>Worked in reinforcement learning, deep learning, computational mechanics, cognitive science, and generative AI</li>
           </ul>
@@ -56,7 +56,7 @@ export default function Home() {
         <section id="what-were-doing-now" className="mb-12">
           <h2 className="text-[1.5em] font-bold mb-2">What We&apos;re Doing Now</h2>
           <p className="text-sm leading-relaxed">
-          Building a foundational model to run complex mechanical simulations in seconds @ <b>CompLabs</b>
+          Building a foundation model to run complex mechanical simulations in seconds @ <b>CompLabs</b>
           </p>
         </section>
       </main>
