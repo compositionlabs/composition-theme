@@ -39,14 +39,14 @@ export default function Home() {
         {/* <!-- WHAT WE'VE DONE --> */}
         <section id="what-weve-done" className="mb-4">
           <h2 className="text-[1.5em] font-bold mb-2">What We&apos;ve Done</h2>
-          <ul className="text-[0.8em] space-y-1 list-disc pl-5 leading-relaxed">
-            <li>Studied and researched at Harvard, MIT, IIT Roorkee, UCLA, and Brown</li>
+          <ul className="text-sm space-y-1 list-disc pl-5 leading-relaxed">
+            <li>Studied and researched at Harvard, IIT Roorkee, and Brown</li>
             <li>Published several studies and a patent</li>
             <li>Founded and sold a company that improved coffee with neuroscience</li>
             <li>Featured in Scientific American, NPR, US News</li>
             <li>Built AI automations for dozens of companies</li>
-            <li>Trained a knowledge graph over the internet to provide personalized learning to 1,200 people, 3 months before ChatGPT was released</li>
-            <li>Beat o1 on GPQA Biology 3 months before it was released</li>
+            <li>Trained a knowledge graph over the internet to provide personalized learning to 1,200 people</li>
+            <li>Built an AI system that outperformed o1 on GPQA Biology 3 months before it was released</li>
             <li>2nd place in a finite element analysis competition with 5,000+ participants</li>
             <li>Worked in reinforcement learning, deep learning, computational mechanics, cognitive science, and generative AI</li>
           </ul>
@@ -55,8 +55,8 @@ export default function Home() {
         {/* <!-- WHAT WE'RE DOING NOW --> */}
         <section id="what-were-doing-now" className="mb-12">
           <h2 className="text-[1.5em] font-bold mb-2">What We&apos;re Doing Now</h2>
-          <p className="text-[0.8em] leading-relaxed">
-          Building a foundational model to reduce the time and compute required for mechanical simulations @ <b>Composition Labs</b>
+          <p className="text-sm leading-relaxed">
+          Accelerating mechanical simulations with AI @ <b>CompLabs</b>
           </p>
         </section>
       </main>
