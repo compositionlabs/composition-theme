@@ -23,41 +23,13 @@ export default function Navbar() {
 		<nav className="flex flex-col w-full justify-center h-24">
 			<div className="flex w-full justify-center items-center">
 				<Container type="primary">
-					<div className="flex justify-between items-center">
-						<div className="flex items-center gap-8">
-							<Link href={config.logoUrl} className="items-center bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-transparent bg-clip-text text-lg font-medium py-4">
-								{config.logoName.toLowerCase()}
-							</Link>
-							<DropdownMenu>
-								<DropdownMenuTrigger className="flex items-center gap-1 font-light bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-transparent bg-clip-text text-lg">
-									use cases
-								</DropdownMenuTrigger>
-								<DropdownMenuContent className="w-56 bg-black border border-[#4C6EF5]" onSelect={() => false}>
-									{useCases.map((useCase) => (
-										<DropdownMenuItem key={useCase.href} className="py-3 hover:bg-[#4C6EF5]/10">
-											<Link href={useCase.href} className="w-full text-lg bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-transparent bg-clip-text">
-												{useCase.title}
-											</Link>
-										</DropdownMenuItem>
-									))}
-									<div className="px-2 py-4 border-t border-[#4C6EF5]/20 mt-2">
-										<p className="text-sm text-gray-400 mb-2">Looking for something else?</p>
-										<Link href={config.getStartedUrl}>
-											<Button variant="secondary" className="w-full bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-white hover:opacity-90">
-												Get Started
-											</Button>
-										</Link>
-									</div>
-								</DropdownMenuContent>
-							</DropdownMenu>
+					<div className="flex justify-between items-center text-2xl font-medium text-primary border border-gray-50/40 rounded-full py-2 px-2">
+						<div className="text-white font-mono text-lg px-4">
+							Jacobian
 						</div>
-						<div className="flex gap-4">
-							<Link href={config.getStartedUrl}>
-								<Button variant="default" className="bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-white hover:opacity-90">
-									Get Started
-								</Button>
-							</Link>
-						</div>
+						<Button>
+							Login
+						</Button>
 					</div>
 				</Container>
 			</div>

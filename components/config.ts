@@ -5,7 +5,8 @@ const config = {
     title: 'Social Agents for lead generation',
     subtitle: 'End-to-end workflow design and optimization',
     getStartedUrl: 'https://cal.com/noah-evers/30min',
-    landingPageTitle: 'Bespoke AI agents for all your business tasks'
+    landingPageTitle: 'Using AI to automate CAE workflows',
+    textOne: 'Jacobian integrates with commercial and in-house solvers to assist with tedious tasks like CAD cleaning, applying boundary conditions, meshing, and post-processed.'
 }
 
 export default config;
