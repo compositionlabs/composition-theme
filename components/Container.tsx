@@ -9,12 +9,14 @@ const containerTypes: Record<string, string> = {
 export default function Container({
 	type = "primary",
 	children,
+	className,
 }: Readonly<{
 	type?: string;
 	children: React.ReactNode;
+	className?: string;
 }>) {
   return (
-	<div className={"flex h-full " + containerTypes[type]}>
+	<div className={"flex h-full " + containerTypes[type] + " " + className}>
 		{children}
 	</div>
   );

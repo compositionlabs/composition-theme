@@ -1,5 +1,3 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -35,10 +33,8 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className + " flex flex-col h-screen bg-gray-900 max-w-[1200px] px-4 mx-auto"}>
-        <Navbar />
+      <body className={inter.className + " flex flex-col h-screen bg-gray-900 w-full mx-auto"}>
         {children}
-        <Footer />
       </body>
     </html>
   );
