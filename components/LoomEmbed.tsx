@@ -18,6 +18,7 @@ export default function LoomEmbed({
       <iframe 
         src={embedUrl}
         frameBorder="0" 
+        // @ts-ignore
         webkitallowfullscreen="true"
         mozallowfullscreen="true"
         allowFullScreen
