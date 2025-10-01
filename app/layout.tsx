@@ -1,9 +1,7 @@
-import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import Script from "next/script";
-
+import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -35,10 +33,8 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className + " flex flex-col h-screen bg-white max-w-[1000px] px-4 mx-auto"}>
-        {/* <Navbar /> */}
+      <body className={inter.className + " flex flex-col h-screen bg-gray-900 w-full mx-auto"}>
         {children}
-        <Footer />
       </body>
     </html>
   );
