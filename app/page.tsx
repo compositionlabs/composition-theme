@@ -1,9 +1,7 @@
 import config from "@/components/config";
-import Container from "@/components/Container";
-import FluidScene from "@/components/FluidScene";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import SnapSection, { SnapContainer } from "@/components/SnapSection";
+import { SnapContainer } from "@/components/SnapSection";
 
 export default function Home() {
   return (
@@ -15,22 +13,21 @@ export default function Home() {
       
       {/* Snap Scrolling Container */}
       <SnapContainer className="pt-24 pb-20">
-        {/* Fluid Scene Section */}
-        <SnapSection id="hero">
+        {/* <SnapSection id="hero">
           <div className="relative h-full w-full">
             <FluidScene text="JACOBIAN" />
           </div>
-        </SnapSection>
+        </SnapSection> */}
         
         {/* About Section */}
-        <SnapSection id="about" className="bg-gradient-to-b from-black to-gray-900 flex items-center justify-center">
+        {/* <SnapSection id="about" className="bg-gradient-to-b from-black to-gray-900 flex items-center justify-center"> */}
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-4 text-white text-left">{config.landingPageTitle}</h2>
             <p className="text-xl text-gray-300 max-w-4xl mx-auto text-left">
               {config.textOne}
             </p>
           </div>
-        </SnapSection>
+        {/* </SnapSection> */}
         
         {/* <SnapSection id="features" className="bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center">
           <div className="text-center">
