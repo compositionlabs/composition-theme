@@ -19,19 +19,6 @@ export default function Home() {
         <SnapSection id="hero">
           <div className="relative h-full w-full">
             <FluidScene text="JACOBIAN" />
-            {/* Scroll indicator */}
-            {/* <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 z-10">
-              <div className="flex flex-col items-center animate-bounce">
-                <svg 
-                  className="w-6 h-6 text-white/70" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </div>
-            </div> */}
           </div>
         </SnapSection>
         
@@ -45,8 +32,7 @@ export default function Home() {
           </div>
         </SnapSection>
         
-        {/* Features Section */}
-        <SnapSection id="features" className="bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center">
+        {/* <SnapSection id="features" className="bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-4">Features</h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -55,7 +41,6 @@ export default function Home() {
           </div>
         </SnapSection>
         
-        {/* Get Started Section */}
         <SnapSection id="get-started" className="bg-gradient-to-b from-gray-800 to-black flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-4">Get Started</h2>
@@ -63,7 +48,7 @@ export default function Home() {
               Join thousands of developers and designers using Jacobian for their creative projects.
             </p>
           </div>
-        </SnapSection>
+        </SnapSection> */}
       </SnapContainer>
       
       {/* Fixed Footer */}

@@ -48,13 +48,6 @@ export default function Navbar() {
 					</div>
 				</Container>
 			</div>
-			{/* Scroll progress bar */}
-			<div className="absolute bottom-0 left-0 h-0.5 bg-white/20 w-full">
-				<div 
-					className="h-full bg-white/70 transition-all duration-150 ease-out"
-					style={{ width: `${scrollProgress}%` }}
-				/>
-			</div>
 		</nav>
   );
 }

@@ -2,7 +2,7 @@
 
 import { GPUFluid } from "@/lib/GPUFluid";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ShaderMaterial, WebGLRenderer } from "three";
 import { PointerState } from "@/lib/GPUFluid";
 
@@ -10,9 +10,13 @@ interface FluidSimulationProps {
   text?: string;
 }
 
+interface FluidSimulationWithVisibilityProps extends FluidSimulationProps {
+  isVisible: boolean;
+}
+
 const pointerDefault: PointerState = { x: 0, y: 0, dx: 0, dy: 0 };
 
-function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
+function FluidSimulationWithVisibility({ text = "JACOBIAN", isVisible }: FluidSimulationWithVisibilityProps) {
   const fluidRef = useRef<GPUFluid | null>(null);
   const pointerRef = useRef<PointerState>({ ...pointerDefault });
   const prevPointer = useRef({ x: 0, y: 0 });
@@ -38,7 +42,7 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
 
 
   const onPointerDown = useCallback((event: PointerEvent) => {
-    if (!fluidRef.current) return;
+    if (!fluidRef.current || !isVisible) return;
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = 1 - (event.clientY - rect.top) / rect.height;
@@ -53,7 +57,7 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
   }, []);
 
   const onPointerMove = useCallback((event: PointerEvent) => {
-    if (!fluidRef.current || !isPointerDownRef.current) return;
+    if (!fluidRef.current || !isPointerDownRef.current || !isVisible) return;
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = 1 - (event.clientY - rect.top) / rect.height;
@@ -64,7 +68,7 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
     pointerRef.current.dy = y - prevPointer.current.y;
     prevPointer.current.x = x;
     prevPointer.current.y = y;
-  }, []);
+  }, [isVisible]);
 
   const onPointerUp = useCallback(() => {
     isPointerDownRef.current = false;
@@ -120,7 +124,7 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
   }, []);
 
   useFrame((_, delta) => {
-    if (!fluidRef.current) return;
+    if (!fluidRef.current || !isVisible) return;
     
     fluidRef.current.step(delta, pointerRef.current);
     material.uniforms.uTexture.value = fluidRef.current.dyeTexture;
@@ -128,7 +132,7 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
   });
 
   return (
-    <mesh>
+    <mesh visible={isVisible}>
       <planeGeometry args={[2, 2]} />
       <primitive object={material} attach="material" />
     </mesh>
@@ -136,21 +140,48 @@ function FluidSimulation({ text = "JACOBIAN" }: FluidSimulationProps) {
 }
 
 export function FluidCanvas({ text = "JACOBIAN" }: FluidSimulationProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <Canvas 
-      orthographic 
-      camera={{ position: [0, 0, 1] }} 
-      dpr={[1, 2]}
-      gl={{ 
-        antialias: false, 
-        alpha: false,
-        preserveDrawingBuffer: false,
-        powerPreference: "high-performance"
-      }}
-    >
-      <color attach="background" args={[0.0, 0.0, 0.0]} />
-      <FluidSimulation text={text} />
-    </Canvas>
+    <div ref={containerRef} className="w-full h-full">
+      <Canvas 
+        orthographic 
+        camera={{ position: [0, 0, 1] }} 
+        dpr={[1, 2]}
+        gl={{ 
+          antialias: false, 
+          alpha: false,
+          preserveDrawingBuffer: false,
+          powerPreference: "high-performance"
+        }}
+      >
+        <color attach="background" args={[0.0, 0.0, 0.0]} />
+        <FluidSimulationWithVisibility text={text} isVisible={isVisible} />
+      </Canvas>
+    </div>
   );
 }
 
