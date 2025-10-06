@@ -4,8 +4,21 @@ import Container from "./Container";
 import config from "./config";
 import { Button } from "./ui/button";
 import { ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
 	return (
         <Container type="hero">
             <div className="relative flex justify-center w-full h-full min-h-[60vh] bg-transparent">
@@ -17,43 +30,45 @@ export default function Hero() {
                             <p className="text-left text-white text-xl max-w-5xl">
                                 {config.textOne}
                             </p>
-                            <div className="flex w-full max-w-5xl justify-start">
-                                <Button 
-                                    className="rounded-none group touch-manipulation"
-                                    onTouchStart={() => {}} // Enable touch events
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        
-                                        const demoElement = document.getElementById('demo');
-                                        const container = document.querySelector('.snap-y') as HTMLElement;
-                                        
-                                        if (demoElement && container) {
-                                            // Disable scroll snap temporarily for smooth scrolling
-                                            container.style.scrollSnapType = 'none';
+                            {!isMobile && (
+                                <div className="flex w-full max-w-5xl justify-start">
+                                    <Button 
+                                        className="rounded-none group touch-manipulation"
+                                        onTouchStart={() => {}} // Enable touch events
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
                                             
-                                            // Calculate exact scroll position
-                                            const containerRect = container.getBoundingClientRect();
-                                            const elementRect = demoElement.getBoundingClientRect();
-                                            const scrollTop = container.scrollTop + elementRect.top - containerRect.top;
+                                            const demoElement = document.getElementById('demo');
+                                            const container = document.querySelector('.snap-y') as HTMLElement;
                                             
-                                            // Force scroll with multiple fallbacks
-                                            container.scrollTo({
-                                                top: scrollTop,
-                                                behavior: 'smooth'
-                                            });
-                                            
-                                            // Re-enable scroll snap after animation
-                                            setTimeout(() => {
-                                                container.style.scrollSnapType = 'y proximity';
-                                            }, 1000);
-                                        }
-                                    }}
-                                >
-                                    Demo 
-                                    <ArrowDown className="size-4 text-black group-hover:text-white ml-2" />
-                                </Button>
-                            </div>
+                                            if (demoElement && container) {
+                                                // Disable scroll snap temporarily for smooth scrolling
+                                                container.style.scrollSnapType = 'none';
+                                                
+                                                // Calculate exact scroll position
+                                                const containerRect = container.getBoundingClientRect();
+                                                const elementRect = demoElement.getBoundingClientRect();
+                                                const scrollTop = container.scrollTop + elementRect.top - containerRect.top;
+                                                
+                                                // Force scroll with multiple fallbacks
+                                                container.scrollTo({
+                                                    top: scrollTop,
+                                                    behavior: 'smooth'
+                                                });
+                                                
+                                                // Re-enable scroll snap after animation
+                                                setTimeout(() => {
+                                                    container.style.scrollSnapType = 'y proximity';
+                                                }, 1000);
+                                            }
+                                        }}
+                                    >
+                                        Demo 
+                                        <ArrowDown className="size-4 text-black group-hover:text-white ml-2" />
+                                    </Button>
+                                </div>
+                            )}
                     </div>
                 </div>
             </div>
