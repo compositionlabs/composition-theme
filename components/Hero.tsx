@@ -7,17 +7,17 @@ import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
 	return (
-        <Container type="primary">
+        <Container type="hero">
             <div className="relative flex justify-center w-full h-full min-h-[60vh] bg-transparent pointer-events-none">
                 <div className="flex flex-col justify-center w-full gap-12 h-full z-10" style={{ pointerEvents: 'auto' }}>
-                    <div className="flex flex-col flex-grow w-full h-full justify-center items-center gap-4">
+                    <div className="flex flex-col flex-grow h-full justify-center gap-8 mx-auto px-2">
                             <h1 className="text-left text-5xl font-medium text-white">
                                 {config.landingPageTitle}
                             </h1>
-                            <p className="text-left text-white text-xl max-w-5xl p-5">
+                            <p className="text-left text-white text-xl max-w-5xl">
                                 {config.textOne}
                             </p>
-                            <div className="flex w-full max-w-5xl justify-start px-5">
+                            <div className="flex w-full max-w-5xl justify-start">
                                 <Button 
                                     className="rounded-none group"
                                     onClick={() => {

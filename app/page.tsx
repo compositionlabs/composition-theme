@@ -20,7 +20,7 @@ export default function Home() {
         </SnapSection>
         <SnapSection id="demo">
           <div className="flex items-center justify-center w-full h-full">
-            <div className="flex items-center justify-center w-3/5"> 
+            <div className="flex items-center justify-center w-full px-2 sm:w-3/5"> 
               <LoomEmbed 
                 videoId="378dbf150f1c4f43be1d62775f011c3c"
                 sid="d6f02fc9-6c5e-4c29-b95f-c5c240ac2a7d"
