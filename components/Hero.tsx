@@ -8,8 +8,8 @@ import { ArrowDown } from "lucide-react";
 export default function Hero() {
 	return (
         <Container type="hero">
-            <div className="relative flex justify-center w-full h-full min-h-[60vh] bg-transparent pointer-events-none">
-                <div className="flex flex-col justify-center w-full gap-12 h-full z-10" style={{ pointerEvents: 'auto' }}>
+            <div className="relative flex justify-center w-full h-full min-h-[60vh] bg-transparent">
+                <div className="flex flex-col justify-center w-full gap-12 h-full z-10">
                     <div className="flex flex-col flex-grow h-full justify-center gap-8 mx-auto px-2">
                             <h1 className="text-left text-5xl font-medium text-white">
                                 {config.landingPageTitle}
@@ -20,10 +20,27 @@ export default function Hero() {
                             <div className="flex w-full max-w-5xl justify-start">
                                 <Button 
                                     className="rounded-none group"
-                                    onClick={() => {
-                                        document.getElementById('demo')?.scrollIntoView({ 
-                                            behavior: 'smooth' 
-                                        });
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        const demoElement = document.getElementById('demo');
+                                        if (demoElement) {
+                                            // Try scrollIntoView first
+                                            demoElement.scrollIntoView({ 
+                                                behavior: 'smooth',
+                                                block: 'start'
+                                            });
+                                            
+                                            // Fallback for mobile browsers
+                                            setTimeout(() => {
+                                                const container = document.querySelector('.snap-y');
+                                                if (container) {
+                                                    container.scrollTo({
+                                                        top: demoElement.offsetTop,
+                                                        behavior: 'smooth'
+                                                    });
+                                                }
+                                            }, 100);
+                                        }
                                     }}
                                 >
                                     Demo 
