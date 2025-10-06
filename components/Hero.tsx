@@ -19,27 +19,34 @@ export default function Hero() {
                             </p>
                             <div className="flex w-full max-w-5xl justify-start">
                                 <Button 
-                                    className="rounded-none group"
+                                    className="rounded-none group touch-manipulation"
+                                    onTouchStart={() => {}} // Enable touch events
                                     onClick={(e) => {
                                         e.preventDefault();
+                                        e.stopPropagation();
+                                        
                                         const demoElement = document.getElementById('demo');
-                                        if (demoElement) {
-                                            // Try scrollIntoView first
-                                            demoElement.scrollIntoView({ 
-                                                behavior: 'smooth',
-                                                block: 'start'
+                                        const container = document.querySelector('.snap-y') as HTMLElement;
+                                        
+                                        if (demoElement && container) {
+                                            // Disable scroll snap temporarily for smooth scrolling
+                                            container.style.scrollSnapType = 'none';
+                                            
+                                            // Calculate exact scroll position
+                                            const containerRect = container.getBoundingClientRect();
+                                            const elementRect = demoElement.getBoundingClientRect();
+                                            const scrollTop = container.scrollTop + elementRect.top - containerRect.top;
+                                            
+                                            // Force scroll with multiple fallbacks
+                                            container.scrollTo({
+                                                top: scrollTop,
+                                                behavior: 'smooth'
                                             });
                                             
-                                            // Fallback for mobile browsers
+                                            // Re-enable scroll snap after animation
                                             setTimeout(() => {
-                                                const container = document.querySelector('.snap-y');
-                                                if (container) {
-                                                    container.scrollTo({
-                                                        top: demoElement.offsetTop,
-                                                        behavior: 'smooth'
-                                                    });
-                                                }
-                                            }, 100);
+                                                container.style.scrollSnapType = 'y mandatory';
+                                            }, 1000);
                                         }
                                     }}
                                 >

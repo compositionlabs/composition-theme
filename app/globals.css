@@ -40,6 +40,20 @@
   }
 }
 
+/* Mobile touch optimizations */
+@layer utilities {
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Improve scroll behavior on mobile */
+  .snap-y {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
 /* body {
   background-color: #0f0f0f;
   color: #fff;
