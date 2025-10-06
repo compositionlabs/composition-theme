@@ -3,9 +3,9 @@ import config from "@/components/config";
 
 export default function Footer() {
     return (
-    <footer className="w-full py-4">
-        <Container type="primary">
-            <div className="flex flex-row justify-between pt-4">
+    <footer className="w-full">
+        <Container type="footer">
+            <div className="flex flex-row justify-between">
                 <p className="text-gray-400 text-sm">{config.footerText}</p>
             </div>
         </Container>
