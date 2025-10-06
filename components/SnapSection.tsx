@@ -26,7 +26,7 @@ interface SnapContainerProps {
 
 export function SnapContainer({ children, className = "" }: SnapContainerProps) {
   return (
-    <div className={`snap-y snap-mandatory overflow-y-scroll h-screen ${className}`}>
+    <div className={`snap-y snap-proximity overflow-y-scroll h-screen ${className}`}>
       {children}
     </div>
   );

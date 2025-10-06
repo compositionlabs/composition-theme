@@ -45,7 +45,7 @@ export default function Hero() {
                                             
                                             // Re-enable scroll snap after animation
                                             setTimeout(() => {
-                                                container.style.scrollSnapType = 'y mandatory';
+                                                container.style.scrollSnapType = 'y proximity';
                                             }, 1000);
                                         }
                                     }}
