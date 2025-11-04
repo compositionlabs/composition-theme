@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
+import FluidBackground from "@/components/FluidBackground";
 
 export const metadata: Metadata = {
   title: "Composition Labs",
@@ -33,8 +34,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className + " flex flex-col h-screen bg-gray-900 w-full mx-auto"}>
-        {children}
+      <body className={inter.className + " flex flex-col w-full mx-auto"}>
+        <FluidBackground className="h-screen w-screen">
+          {children}
+        </FluidBackground>
       </body>
     </html>
   );
