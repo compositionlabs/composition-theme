@@ -35,7 +35,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={inter.className + " flex flex-col w-full mx-auto"}>
-        <FluidBackground className="h-screen w-screen">
+        <FluidBackground className="fixed inset-0 w-screen h-screen">
           {children}
         </FluidBackground>
       </body>
