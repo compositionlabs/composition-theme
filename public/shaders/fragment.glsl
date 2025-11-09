@@ -5,6 +5,11 @@ varying vec2 pos;
 uniform float u_time;
 uniform vec2 u_resolution;
 
+// Simple noise function for grain effect
+float random(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
 void main() {
     // Normalize coordinates
     vec2 uv = (pos + 1.0) * 0.5;
@@ -28,24 +33,25 @@ void main() {
     // Combine all wave layers
     float combinedWave = wave1 + wave2 + wave3 + foam;
     
-    // Define 4 custom colors
-    vec3 color1 = vec3(0.0, 0.106, 0.718);   // rgb(0, 27, 183)
-    vec3 color2 = vec3(0.0, 0.275, 1.0);     // rgb(0, 70, 255)
-    vec3 color3 = vec3(1.0, 0.502, 0.251);   // rgb(255, 128, 64)
-    vec3 color4 = vec3(0.961, 0.945, 0.863); // rgb(245, 241, 220)
+    // Define 3 custom colors
+    vec3 color1 = vec3(0.561, 0.671, 0.831); // rgb(143, 171, 212)
+    vec3 color2 = vec3(0.290, 0.439, 0.663); // rgb(74, 112, 169)
+    vec3 color3 = vec3(0.0, 0.0, 0.0);       // rgb(0, 0, 0)
     
     // Create sharper wave-based color transitions with reduced blur
     float colorMix1 = smoothstep(-0.15, 0.15, wave1 + wave2 * 0.7);
     float colorMix2 = smoothstep(-0.2, 0.2, wave2 + wave3 * 1.0);
-    float colorMix3 = smoothstep(-0.1, 0.1, wave3 + foam * 3.0);
     
     // Layer colors with more dramatic mixing
     vec3 baseColor = mix(color1, color2, colorMix1);
-    vec3 midColor = mix(baseColor, color3, colorMix2 * 0.9);
-    vec3 finalColor = mix(midColor, color4, colorMix3 * 0.8);
+    vec3 finalColor = mix(baseColor, color3, colorMix2 * 0.9);
     
     // Keep colors within the specified palette range
     finalColor = clamp(finalColor, 0.0, 1.0);
+    
+    // Add grain effect
+    float grain = random(uv * u_resolution + u_time) * 0.14;
+    finalColor += grain - 0.04;
     
     gl_FragColor = vec4(finalColor, 1.0);
 }
