@@ -144,7 +144,7 @@ const FluidBackground = ({ children, className = '' }: FluidBackgroundProps) => 
       {/* Shader canvas as background */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
+        className="fixed inset-0 w-full h-full"
         width={800}
         height={600}
       />
