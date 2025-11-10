@@ -10,10 +10,10 @@ export default function Hero() {
 	return (
         <Container type="hero">
             <div className="flex flex-col gap-8 w-full items-center">
-                <h1 className="text-left text-6xl font-medium text-white max-w-5xl w-full">
+                <h1 className="text-left text-4xl md:text-6xl font-medium text-white max-w-5xl w-full">
                     {config.landingPageTitle}
                 </h1>
-                <p className="text-left text-white text-xl max-w-5xl w-full">
+                <p className="text-left text-white text-lg md:text-xl max-w-5xl w-full">
                     {config.textOne}
                 </p>
                 <div className="flex w-full max-w-5xl">
