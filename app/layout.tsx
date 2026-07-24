@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   title: "Jacobian — AI-native metal production",
   description:
     "Jacobian is AI-native metal production: AI for running metal factories.",
-  icons: {
-    icon: '/favicon.ico',
-  },
   openGraph: {
     title: "Jacobian — AI-native metal production",
     description: "AI for running metal factories.",
