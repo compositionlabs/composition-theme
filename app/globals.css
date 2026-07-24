@@ -40,27 +40,6 @@
   }
 }
 
-/* 26 = character count of the h1 text in app/page.tsx — keep width, steps(), and keyframe in sync */
-.typewriter {
-  box-sizing: content-box;
-  color: #fff;
-  font-size: clamp(1rem, 3.5vw, 2rem);
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #fff;
-  width: 26ch;
-  animation: typing 2.6s steps(26, end), blink 1s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 26ch; }
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
 /* Mobile touch optimizations */
 @layer utilities {
   .touch-manipulation {
