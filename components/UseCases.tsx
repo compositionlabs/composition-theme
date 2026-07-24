@@ -35,8 +35,8 @@ const UseCases: React.FC<UseCasesProps> = ({ videos }) => {
             poster={video.thumbnail}
           />
           {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-lg">
-            <p className="text-white text-center p-4">{video.description}</p>
+          <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-lg">
+            <p className="text-foreground text-center p-4">{video.description}</p>
           </div>
         </div>
       ))}
@@ -64,7 +64,7 @@ const UseCases: React.FC<UseCasesProps> = ({ videos }) => {
             />
             <button
               onClick={() => setSelectedVideo(null)}
-              className="absolute -top-4 -right-4 bg-white rounded-full p-2 hover:bg-gray-100"
+              className="absolute -top-4 -right-4 bg-card text-card-foreground rounded-full p-2 hover:bg-muted"
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 

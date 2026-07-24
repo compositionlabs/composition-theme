@@ -33,10 +33,10 @@ void main() {
     // Combine all wave layers
     float combinedWave = wave1 + wave2 + wave3 + foam;
     
-    // Define 3 custom colors
-    vec3 color1 = vec3(0.561, 0.671, 0.831); // rgb(143, 171, 212)
-    vec3 color2 = vec3(0.290, 0.439, 0.663); // rgb(74, 112, 169)
-    vec3 color3 = vec3(0.0, 0.0, 0.0);       // rgb(0, 0, 0)
+    // Jack UI v2 palette (dark): bright teal highlight, deep teal mid, dark slate base
+    vec3 color1 = vec3(0.149, 0.710, 0.741); // #26b5bd (primary, dark)
+    vec3 color2 = vec3(0.059, 0.475, 0.525); // #0f7986 (primary, light)
+    vec3 color3 = vec3(0.165, 0.204, 0.216); // #2a3437 (background, dark)
     
     // Create sharper wave-based color transitions with reduced blur
     float colorMix1 = smoothstep(-0.15, 0.15, wave1 + wave2 * 0.7);

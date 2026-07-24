@@ -13,10 +13,10 @@ const Feature = ({ title, description, imgSrc, reverse = false }: FeatureProps) 
         <Container type="primary">
             <div className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center justify-between py-16`}>
                 <div className="flex flex-col gap-4 flex-1">
-                    <h2 className="text-4xl font-bold bg-gradient-to-r from-[#4C6EF5] to-[#5B6EF5] text-transparent bg-clip-text">
+                    <h2 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
                         {title}
                     </h2>
-                    <p className="text-white text-lg">
+                    <p className="text-foreground text-lg">
                         {description}
                     </p>
                 </div>

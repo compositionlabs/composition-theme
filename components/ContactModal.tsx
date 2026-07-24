@@ -51,17 +51,17 @@ const ContactModal: React.FC<ContactModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg text-black">
-        <button onClick={onClose} className="float-right text-xl text-black">&times;</button>
-        <h2 className="text-2xl mb-4 text-black">Contact Us</h2>
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
+      <div className="bg-card p-8 rounded-lg text-card-foreground border border-border">
+        <button onClick={onClose} className="float-right text-xl text-card-foreground">&times;</button>
+        <h2 className="text-2xl mb-4 text-card-foreground">Contact Us</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
             placeholder="Name"
             required
-            className="w-full p-2 mb-4 border rounded text-black"
+            className="w-full p-2 mb-4 border border-input rounded bg-background text-foreground placeholder:text-muted-foreground"
             onChange={handleChange}
           />
           <input
@@ -69,23 +69,23 @@ const ContactModal: React.FC<ContactModalProps> = ({ onClose }) => {
             name="email"
             placeholder="Email"
             required
-            className="w-full p-2 mb-4 border rounded text-black"
+            className="w-full p-2 mb-4 border border-input rounded bg-background text-foreground placeholder:text-muted-foreground"
             onChange={handleChange}
           />
           <textarea
             name="message"
             placeholder="Message"
             required
-            className="w-full p-2 mb-4 border rounded text-black"
+            className="w-full p-2 mb-4 border border-input rounded bg-background text-foreground placeholder:text-muted-foreground"
             onChange={handleChange}
           ></textarea>
-          <button type="submit" className="w-full p-2 bg-black text-white rounded">Submit</button>
+          <button type="submit" className="w-full p-2 bg-primary text-primary-foreground rounded">Submit</button>
         </form>
         {submitStatus === 'success' && (
-          <p className="mt-4 text-green-600">Message sent successfully!</p>
+          <p className="mt-4 text-primary">Message sent successfully!</p>
         )}
         {submitStatus === 'error' && (
-          <p className="mt-4 text-red-600">Error sending message. Please try again.</p>
+          <p className="mt-4 text-destructive">Error sending message. Please try again.</p>
         )}
       </div>
     </div>

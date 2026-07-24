@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="font-mono text-sm leading-8 text-black dark:text-white">
+    <div className="font-mono text-sm leading-8 text-foreground">
       {/* Fixed Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 pointer-events-auto">
         <Navbar />

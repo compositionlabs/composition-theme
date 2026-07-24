@@ -21,7 +21,7 @@ export default function LoomEmbed({
   return (
     <div className={`relative h-0 w-full ${aspectRatio} ${className}`}>
       {isLoading && (
-        <div className="absolute top-0 left-0 w-full h-full bg-gray-800/80 animate-pulse rounded-lg"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-muted/80 animate-pulse rounded-lg"></div>
       )}
       <iframe 
         src={embedUrl}

@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="w-full py-4">
         <Container type="footer">
             <div className="flex flex-row justify-between">
-                <p className="text-white text-sm">{config.footerText}</p>
+                <p className="text-muted-foreground text-sm">{config.footerText}</p>
             </div>
         </Container>
     </footer>
