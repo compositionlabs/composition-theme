@@ -6,11 +6,34 @@ const inter = Inter({ subsets: ["latin"] });
 import FluidBackground from "@/components/FluidBackground";
 
 export const metadata: Metadata = {
-  title: "Composition Labs",
-  description: "Composition Labs",
+  metadataBase: new URL("https://jacobian.co"),
+  title: "Jacobian — AI-native metal production",
+  description:
+    "Jacobian is AI-native metal production: AI for running metal factories.",
   icons: {
     icon: '/favicon.ico',
-  }
+  },
+  openGraph: {
+    title: "Jacobian — AI-native metal production",
+    description: "AI for running metal factories.",
+    url: "https://jacobian.co",
+    siteName: "Jacobian",
+    type: "website",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Jacobian — AI-native metal production",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jacobian — AI-native metal production",
+    description: "AI for running metal factories.",
+    images: ["/og.jpg"],
+  },
 };
 
 export default function RootLayout({
