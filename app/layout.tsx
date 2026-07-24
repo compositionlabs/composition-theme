@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-const inter = Inter({ subsets: ["latin"] });
-import FluidBackground from "@/components/FluidBackground";
+const mono = IBM_Plex_Mono({ weight: "300", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Composition Labs",
-  description: "Composition Labs",
+  description: "AI-native metal production",
   icons: {
     icon: '/favicon.ico',
   }
@@ -34,10 +33,8 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className + " flex flex-col w-full mx-auto"}>
-        <FluidBackground className="fixed inset-0 w-screen h-screen">
-          {children}
-        </FluidBackground>
+      <body className={mono.className + " bg-black"}>
+        {children}
       </body>
     </html>
   );
