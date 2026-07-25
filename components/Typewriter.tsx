@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface TypewriterProps {
@@ -15,7 +15,7 @@ interface TypewriterProps {
 interface Line {
     /** Index in `text` where this line begins */
     start: number;
-    /** The line's text, trailing space trimmed */
+    /** The line's text — always whole words */
     content: string;
 }
 
@@ -49,50 +49,66 @@ export default function Typewriter({
         };
     }, [text, speed, startDelay]);
 
-    // Find where the browser wraps the *complete* headline, so typing can fill
-    // those fixed lines. Without this the partial text re-wraps as it grows: a
-    // word starts at the end of one line, then jumps to the next once it no
-    // longer fits.
+    // Words and the whitespace between them, each tagged with its offset in `text`.
+    const tokens = useMemo(() => {
+        let index = 0;
+        return text
+            .split(/(\s+)/)
+            .filter(Boolean)
+            .map((value) => {
+                const token = { value, start: index, isSpace: /^\s+$/.test(value) };
+                index += value.length;
+                return token;
+            });
+    }, [text]);
+
+    // Group the words by the line they land on, so typing can fill those fixed
+    // lines. Without this the partial text re-wraps as it grows: a word starts
+    // at the end of one line, then pops down to the next once it stops fitting.
     useEffect(() => {
         const el = measureRef.current;
         if (!el) return;
 
         const measure = () => {
-            const node = el.firstChild;
-            if (!node) return;
-            const range = document.createRange();
-            const starts = [0];
+            const words = el.querySelectorAll<HTMLElement>("[data-start]");
+            const groups: { start: number; end: number }[] = [];
             let lastTop: number | null = null;
-            for (let i = 0; i < text.length; i++) {
-                range.setStart(node, i);
-                range.setEnd(node, i + 1);
-                const rect = range.getClientRects()[0];
-                if (!rect) continue;
-                if (lastTop === null) {
-                    lastTop = rect.top;
-                } else if (rect.top - lastTop > 1) {
-                    starts.push(i);
-                    lastTop = rect.top;
+            words.forEach((word) => {
+                const start = Number(word.dataset.start);
+                const end = start + (word.textContent?.length ?? 0);
+                const { top } = word.getBoundingClientRect();
+                if (lastTop === null || Math.abs(top - lastTop) > 1) {
+                    groups.push({ start, end });
+                    lastTop = top;
+                } else {
+                    groups[groups.length - 1].end = end;
                 }
-            }
-            setLines(
-                starts.map((start, i) => ({
-                    start,
-                    content: text
-                        .slice(start, starts[i + 1] ?? text.length)
-                        .replace(/\s+$/, ""),
-                })),
+            });
+            if (!groups.length) return;
+
+            const next = groups.map(({ start, end }) => ({
+                start,
+                content: text.slice(start, end),
+            }));
+            setLines((prev) =>
+                prev &&
+                prev.length === next.length &&
+                prev.every((line, i) => line.start === next[i].start && line.content === next[i].content)
+                    ? prev
+                    : next,
             );
         };
 
         measure();
+        // Observes a block box — a ResizeObserver on an inline element never fires,
+        // which would leave the lines stale (and overflowing) after a resize.
         const observer = new ResizeObserver(measure);
         observer.observe(el);
         if (document.fonts) {
             document.fonts.ready.then(measure).catch(() => {});
         }
         return () => observer.disconnect();
-    }, [text]);
+    }, [text, tokens]);
 
     // Zero-width wrapper: the caret is drawn over the reserved space rather
     // than taking any of its own, so it can't nudge the text or the wrapping.
@@ -108,14 +124,33 @@ export default function Typewriter({
 
     return (
         <span className={cn("relative block", className)} aria-label={text}>
-            {/* Reserves the final box and provides the wrap measurement */}
-            <span ref={measureRef} aria-hidden className="invisible whitespace-pre-wrap">
-                {text}
+            {/* Reserves the final box and provides the wrap measurement. Each word
+                is nowrap, so a line can only ever break between whole words. The
+                trailing pad is the caret's room: without it a line that exactly
+                fills the width pushes the caret off the edge and the page gains
+                a horizontal scrollbar. */}
+            <span
+                ref={measureRef}
+                aria-hidden
+                className="invisible block whitespace-pre-wrap pr-[calc(0.5em+0.25rem)]"
+            >
+                {tokens.map((token, i) =>
+                    token.isSpace ? (
+                        <span key={i}>{token.value}</span>
+                    ) : (
+                        <span key={i} data-start={token.start} className="whitespace-nowrap">
+                            {token.value}
+                        </span>
+                    ),
+                )}
             </span>
             {/* Typed text, overlaid on the reserved box. Each line keeps its
                 full width via an invisible remainder, so characters land in
                 their final positions instead of sliding as the line centers. */}
-            <span aria-hidden className="absolute inset-0 whitespace-pre-wrap">
+            <span
+                aria-hidden
+                className="absolute inset-0 whitespace-pre-wrap pr-[calc(0.5em+0.25rem)]"
+            >
                 {lines
                     ? lines.map((line, i) => {
                           const typed = Math.max(
