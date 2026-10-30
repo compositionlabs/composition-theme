@@ -99,11 +99,9 @@ export default function RecorderPrivacy() {
         <Section title="Where your data goes">
           <p>
             Recordings are uploaded directly to your organisation&rsquo;s own
-            Jacobian account, in your organisation&rsquo;s storage on
-            Jacobian&rsquo;s cloud infrastructure. Each organisation&rsquo;s
-            data is stored in its own deployment&rsquo;s region; for our
-            current production customer this is Google Cloud in Dammam, Saudi
-            Arabia. Uploads are encrypted in transit (HTTPS).
+            Jacobian deployment, where they are stored on cloud infrastructure
+            in the region chosen for that deployment. Uploads are encrypted in
+            transit (HTTPS).
           </p>
           <p>
             While you record, pieces of the recording may be held temporarily
