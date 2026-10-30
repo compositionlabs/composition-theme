@@ -6,10 +6,10 @@ const SUPPORT_EMAIL = "chinmay@complabs.co";
 const LAST_UPDATED = "October 30, 2026";
 
 export const metadata: Metadata = {
-  title: "Jacobian Recorder — Privacy Policy",
+  title: "Privacy Policy",
   description:
     "How the Jacobian Recorder browser extension collects, uses and stores data.",
-  alternates: { canonical: "/recorder/privacy" },
+  alternates: { canonical: "/privacy" },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -25,13 +25,13 @@ function List({ children }: { children: React.ReactNode }) {
   return <ul className="list-disc pl-5 space-y-2">{children}</ul>;
 }
 
-export default function RecorderPrivacy() {
+export default function Privacy() {
   return (
     <div className="h-full overflow-y-auto font-mono text-sm leading-7 text-foreground">
       <Navbar />
       <main className="w-full max-w-3xl mx-auto px-4 pb-16">
         <h1 className="text-2xl font-medium text-foreground">
-          Jacobian Recorder Privacy Policy
+          Privacy Policy
         </h1>
         <p className="mt-2 text-muted-foreground">Last updated {LAST_UPDATED}</p>
 
